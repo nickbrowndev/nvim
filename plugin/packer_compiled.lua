@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\Nick\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  gruvbox = {
+    loaded = true,
+    path = "C:\\Users\\Nick\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox",
+    url = "https://github.com/morhetz/gruvbox"
+  },
   hardhacker = {
     loaded = true,
     path = "C:\\Users\\Nick\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\hardhacker",
