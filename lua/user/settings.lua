@@ -5,7 +5,7 @@ local opt = vim.opt
 
 -- Colours & Fonts
 --opt.guifont = {"Hack",":h10","Fira_Code",":h10","Consolas",":h10","Courier_New",":h10"}
-opt.guifont = "Hack Nerd Font Mono" --:h14,Hack:h18,Fira_Code:h10,Consolas:h10,Courier_New:h10"
+opt.guifont = {"Hack Nerd Font Mono", ":h12","Hack", ":h18"} -- 'Fira_Code:h10','Consolas:h10','Courier_New:h10'"
 opt.termguicolors = true    -- Enables 24 bit color in terminal
 opt.background = "dark"
 
@@ -29,6 +29,7 @@ opt.colorcolumn = "120"     -- Sets a coloured column at the line index
 opt.updatetime = 750        -- Delay before updating swap files
 --opt.splitright = true       -- Add new horizontal splits on right
 --opt.splitbelow = true       -- Add new vertical splits below
+opt.cursorline = true
 
 -- Navigation
 opt.scrolloff = 5           -- Show x lines above or below cursor when scrolling
