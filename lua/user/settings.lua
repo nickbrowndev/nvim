@@ -33,6 +33,7 @@ opt.cursorline = true
 
 -- Navigation
 opt.scrolloff = 5           -- Show x lines above or below cursor when scrolling
+opt.sidescrolloff = 5       -- Keep x colums to the edge of the buffer
 
 -- Seaching
 --opt.path+=**

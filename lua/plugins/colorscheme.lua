@@ -1,8 +1,8 @@
 return {
 
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+      "rose-pine/neovim",
+      name = "rose-pine",
   },
   {
       "morhetz/gruvbox",
@@ -15,6 +15,17 @@ return {
   {
       "hardhackerlabs/theme-vim",
       name = "hardhacker",
-      lazy = true,
+  },
+  {
+      "savq/melange-nvim",
+      name = "melange",
+  },
+  {
+      "AlexvZyl/nordic.nvim",
+      name = "nordic",
+  },
+  {
+      "sainnhe/everforest",
+      name = "everforest",
   },
 }
