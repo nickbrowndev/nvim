@@ -16,6 +16,12 @@ opt.shiftwidth = 4          -- Set shift width
 opt.expandtab = true        -- Expand tabs to spaces
 opt.smartindent = true      -- Use smart indenting
 opt.wrap = false            -- Line wrapping
+opt.list = true
+-- ASCII list
+-- opt.list = listchars=tab:>\ ,trail:-,eol:$,space:.
+opt.listchars = "tab:\\u00BB ,eol:\\u00B6,space:\\u00B7,multispace:\\u00B7\\u00B7\\u00B7\\u25B9"
+-- trail:,lead:,leadmultispace:,extends:,precedes:,conceal:,nbsp:,
+
 
 -- UI Settings
 -- opt.ruler = true -- TODO not sure this does anything

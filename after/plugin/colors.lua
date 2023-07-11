@@ -1,6 +1,6 @@
 
 function setColorscheme(colorscheme)
-	colorscheme = colorscheme or "rose-pine"
+	colorscheme = colorscheme or "melange"
 	vim.cmd.colorscheme(colorscheme)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
