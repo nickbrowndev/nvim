@@ -3,7 +3,7 @@
 require('lualine').setup({
     sections = {
         -- sections 'a','b','c' and 'x','y','z'
-        lualine_a = {'mode'},--, fmt = function(str) return str:sub(1,1) end }},
+        lualine_a = {'mode'}, --, fmt = function(str) return str:sub(1,1) end }},
         lualine_b = {'branch', 'diff', 'diagnostics'},
         lualine_c = {'%2n', {'filename', path =2}}, -- 1 = path relative to project, 2 = absolute path
         lualine_x = {'encoding', 'fileformat', 'filetype'},
