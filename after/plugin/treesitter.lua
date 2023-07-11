@@ -1,9 +1,16 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
+--
+-- Set up mirror instead of using GitHub
+-- https://github.com/nvim-treesitter/nvim-treesitter#i-want-to-use-a-mirror-instead-of-httpsgithubcom
+
+
+-- Favour 'clang' over GCC due to library incompatibility on Windows
+-- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support#troubleshooting
+--require'nvim-treesitter.install'.compilers = { "clang", "gcc" }
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "java", "html", "css", "javascript", "dockerfile", "yaml", "json", "lua", "vim", "vimdoc", "query" },
-
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 

@@ -9,8 +9,16 @@ return {
       name = "gruvbox",
   },
   {
+      "sainnhe/gruvbox-material",
+      name = "gruvbox-material",
+  },
+  {
       "arcticicestudio/nord-vim",
       name = "nord",
+  },
+  {
+      "EdenEast/nightfox.nvim",
+      name = "nightfox",
   },
   {
       "hardhackerlabs/theme-vim",
