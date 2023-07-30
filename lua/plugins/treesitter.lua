@@ -5,7 +5,7 @@ return {
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
         config = function ()
-            require 'nvim-treesitter.install'.compilers = { "clang", "gcc"}
+            require 'nvim-treesitter.install'.compilers = {"clang"}
         end
     }
 }

@@ -8,9 +8,22 @@ lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({buffer = bufnr})
 end)
 
--- When you don't have mason.nvim installed
--- You'll need to list the servers installed in your system
-lsp.setup_servers({'tsserver', 'eslint'})
+-- Ensure the following LSPs are automatically installed
+lsp.ensure_installed({
+'tsserver', -- Javascript
+'eslint', -- Javascript
+'lua_ls', -- Lua
+'cssls', -- CSS
+'dockerls', -- Docker
+'groovyls', -- Groovy
+'html', -- HTML
+'jdtls', -- Java
+'marksman', -- Markdown
+'sqlls', -- SQL
+'vimls', -- VimL
+'lemminx', -- XML
+'yamlls', -- YAML
+ })
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
