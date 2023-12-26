@@ -12,7 +12,8 @@ Run `winget install Neovim.Neovim` in a Windows command prompt
 Clone to appropriate directory. 
 Neovim will look for a `init.lua` at `%XDG_CONFIG_HOME%\nvim\init.lua`
 If intending to use default location, clone repository to `~/AppData/Local`
-If using a custom location, set `%XDG_CONFIG_HOME%` to point to directory above the repository root 
+
+If using a custom location, clone to that location and set `%XDG_CONFIG_HOME%` to point to directory **above** the repository root 
 
 ## Post-Installation Setup
 
