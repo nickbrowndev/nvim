@@ -19,6 +19,10 @@ Install `MSYS2`, see [this guide](https://github.com/HO-COOH/CPPDevOnWindows#ins
 Outdated:
 > Run `winget install -i LLVM.LLVM` and install for all users This seemed to work, but didn't - :LspInstall clangd to install a C++ compiler for Treesitter to use-
 
+### Install NPM
+
+Run `winget install -e --id OpenJS.NodeJS`
+
 ## Config Installation
 
 Clone to appropriate directory. 
