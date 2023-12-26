@@ -17,7 +17,7 @@ If using a custom location, clone to that location and set `%XDG_CONFIG_HOME%` t
 
 ## Post-Installation Setup
 
-Install `MSYS2`, see https://github.com/HO-COOH/CPPDevOnWindows#msvc
+Install `MSYS2`, see [this guide](https://github.com/HO-COOH/CPPDevOnWindows#download--install-a-c-compiler).
 
 Outdated:
 > Run `winget install -i LLVM.LLVM` and install for all users This seemed to work, but didn't - :LspInstall clangd to install a C++ compiler for Treesitter to use-
