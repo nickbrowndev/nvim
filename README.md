@@ -14,7 +14,7 @@ Install a Nerd Font (e.g. "Hack"): [NerdFonts.com](https://www.nerdfonts.com/fon
 
 ### Install a C++ Compiler
 
-Install `MSYS2`, see [this guide](https://github.com/HO-COOH/CPPDevOnWindows#download--install-a-c-compiler).
+Install `MSYS2`, see [this guide](https://github.com/HO-COOH/CPPDevOnWindows#install-clang).
 
 Outdated:
 > Run `winget install -i LLVM.LLVM` and install for all users This seemed to work, but didn't - :LspInstall clangd to install a C++ compiler for Treesitter to use-
