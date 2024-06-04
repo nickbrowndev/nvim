@@ -5,7 +5,7 @@ local opt = vim.opt
 
 -- Colours & Fonts
 --opt.guifont = {"Hack",":h10","Fira_Code",":h10","Consolas",":h10","Courier_New",":h10"}
-opt.guifont = {"Hack Nerd Font Mono", ":h12","Hack", ":h18"} -- 'Fira_Code:h10','Consolas:h10','Courier_New:h10'"
+opt.guifont = "Hack_Nerd_Font_Mono,Fira_Code,Consolas:h10" -- 'Fira_Code:h10','Consolas:h10','Courier_New:h10'"
 opt.termguicolors = true    -- Enables 24 bit color in terminal
 opt.background = "dark"
 

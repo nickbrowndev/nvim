@@ -15,7 +15,7 @@ lsp.ensure_installed({
 'lua_ls', -- Lua
 'cssls', -- CSS
 'dockerls', -- Docker
-'groovyls', -- Groovy
+--'groovyls', -- Groovy
 'html', -- HTML
 'jdtls', -- Java
 'marksman', -- Markdown
