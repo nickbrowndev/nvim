@@ -2,7 +2,10 @@
 -- Refer to https://neovide.dev/configuration.html
 
 -- Control window transparency
-vim.g.neovide_transparency = 0.9
+vim.g.neovide_opacity = 0.9
+-- Control window blurring
+vim.g.neovide_window_blurred = true
+
 -- Control theme light/dark/auto
 vim.g.neovide_theme = 'dark'
 
@@ -17,12 +20,21 @@ vim.g.neovide_padding_left = 10
 
 -- Scrolling animations
 vim.g.neovide_scroll_animation_length = 0.3
+-- Control how many lines are animated at the end of a scroll action
+vim.g.neovide_scroll_animation_far_lines = 3 -- default 1
 
 -- Hide mouse while typing
 vim.g.neovide_hide_mouse_when_typing = true
 
 -- Cursor customisation
 -- More customisation options available
+
+vim.g.neovide_cursor_antialiasing = true
+
+-- Cursor Animation Length
+vim.g.neovide_cursor_animation_length = 0.150
+vim.g.neovide_cursor_short_animation_length = 0.04
+
 vim.g.neovide_cursor_trail_size = 0.8
 -- Set to 'railgun'
-vim.g.neovide_cursor_vfx_mode = "railgun"
+vim.g.neovide_cursor_vfx_mode = 'railgun'

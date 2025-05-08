@@ -4,8 +4,13 @@ local opt = vim.opt
 -- TODO
 
 -- Colours & Fonts
---opt.guifont = {"Hack",":h10","Fira_Code",":h10","Consolas",":h10","Courier_New",":h10"}
-opt.guifont = "Hack_Nerd_Font_Mono,Fira_Code,Consolas:h10" -- 'Fira_Code:h10','Consolas:h10','Courier_New:h10'"
+vim.g.have_nerd_font = true
+opt.guifont = "Hack Nerd Font Mono:h12"
+-- opt.guifont = "FiraMono Nerd Font:h12"
+-- opt.guifont = "CommitMono:h13"
+-- opt.guifont = "Cascadia Code:h12" -- Add fallback nerd font?
+-- opt.guifont = "Consolas:h12" -- Add fallback nerd font?
+-- opt.guifont = "Courier New:h12" -- Add fallback nerd font?
 opt.termguicolors = true    -- Enables 24 bit color in terminal
 opt.background = "dark"
 
@@ -18,10 +23,12 @@ opt.smartindent = true      -- Use smart indenting
 opt.wrap = false            -- Line wrapping
 opt.list = true
 -- ASCII list
--- opt.list = listchars=tab:>\ ,trail:-,eol:$,space:.
-opt.listchars = "tab:\\u00BB ,eol:\\u00B6,space:\\u00B7,multispace:\\u00B7\\u00B7\\u00B7\\u25B9"
--- trail:,lead:,leadmultispace:,extends:,precedes:,conceal:,nbsp:,
+opt.list = true
+opt.listchars = "tab:\\u00BB\\u0020,space:\\u00B7,nbsp:\\u2423,leadmultispace:\\u00B7\\u00B7\\u00B7\\u25B9"
+-- Additional: eol:\\u00B6,trail:,lead:,multispace:,extends:,precedes:,conceal:,
 
+-- Mouse
+opt.mouse = 'a'             -- Enable mouse mode (helpful for resizing splits etc)
 
 -- UI Settings
 -- opt.ruler = true -- TODO not sure this does anything
@@ -29,17 +36,31 @@ opt.number = true           -- Display current line number in gutter
 opt.relativenumber = true   -- Display relative line numbers
 opt.numberwidth = 5         -- Increase line number gutter size
 opt.showmatch = true        -- Show matching brackets
-opt.showmode = true         -- Show INSERT, REPLACE or VISUAL mode at bottom
+opt.showmode = false        -- Show INSERT, REPLACE or VISUAL mode at bottom. Use status line instead
 opt.signcolumn = "yes"      -- Adds a column for file signs. Could use "number" instead. TODO investigate further
 opt.colorcolumn = "120"     -- Sets a coloured column at the line index
 opt.updatetime = 750        -- Delay before updating swap files
---opt.splitright = true       -- Add new horizontal splits on right
---opt.splitbelow = true       -- Add new vertical splits below
+opt.splitright = true       -- Add new horizontal splits on right
+opt.splitbelow = true       -- Add new vertical splits below
 opt.cursorline = true
+opt.breakindent = true      -- Auto-indent after forced line break
+opt.timeoutlen = 300        -- Adjust timeout after key combination
+opt.inccommand = 'split'    -- Preview substitutions live, as you type!
+opt.confirm = true          -- Raise a confirm dialog to when you have unsaved changes
 
 -- Navigation
 opt.scrolloff = 5           -- Show x lines above or below cursor when scrolling
 opt.sidescrolloff = 5       -- Keep x colums to the edge of the buffer
+
+-- Clipboard 
+
+-- Sync clipboard between OS and Neovim.
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
 
 -- Seaching
 --opt.path+=**
@@ -52,6 +73,7 @@ opt.spell = false           -- 'set spell' sets the dictionary
 
 -- Backup and Undo
 opt.swapfile = false        -- 
+opt.updatetime = 250        -- decrease swapfile save delay 
 opt.backup = false          -- Set file backups
 -- TODO set this?
 --opt.undodir = os.getenv("HOME") .. "/.undodir"  -- set the destination of the undo directory
