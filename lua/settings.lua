@@ -20,7 +20,8 @@ opt.softtabstop = 4         --
 opt.shiftwidth = 4          -- Set shift width
 opt.expandtab = true        -- Expand tabs to spaces
 opt.smartindent = true      -- Use smart indenting
-opt.wrap = false            -- Line wrapping
+opt.wrap = false            -- Line wrapping (default: true)
+opt.linebreak = true        -- Don't split words (default: false)
 opt.list = true
 -- ASCII list
 opt.list = true
@@ -72,7 +73,7 @@ opt.hlsearch = false        -- highlight search matches
 opt.spell = false           -- 'set spell' sets the dictionary
 
 -- Backup and Undo
-opt.swapfile = false        -- 
+opt.swapfile = false        -- Creates a swapfile (default: true)
 opt.updatetime = 250        -- decrease swapfile save delay 
 opt.backup = false          -- Set file backups
 -- TODO set this?
