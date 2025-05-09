@@ -3,7 +3,7 @@
 --  - https://www.youtube.com/watch?v=435-amtVYJ8
 --  - https://www.youtube.com/watch?v=KYDG3AHgYEs
 
-vim.keymap.set('', '<Space>', '<Nop>')
+vim.keymap.set({'n','v'}, '<Space>', '<Nop>', {silent = true})
 vim.g.mapleader = ' ' -- Set leader key
 vim.g.maplocalleader = ' '
 
@@ -14,6 +14,8 @@ vim.g.maplocalleader = ' '
 --   "x" visual block mode
 --   "t" terminal mode
 --   "c" command mode
+
+local opts = {noremap = true, silent=true}
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear highlights on search when pressing <Esc> in normal mode
 
@@ -27,20 +29,14 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Buffer Operations
+vim.keymap.set('n', '<C-s>', '<cmd> w <CR>') -- Save file
+vim.keymap.set('n', '<Tab>', ':bnext<CR>') -- Move to next buffer
+vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>') -- Move to next buffer
 
-
-
-
-
--- #########################
-
-
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex) -- Open file tree
-
+-- Editing
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv") -- Highlighted text move up/down
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv") -- ''
-
-vim.keymap.set('n', 'J', 'mzJ`z') -- Keep cursor in place when appending lines
 
 vim.keymap.set('n', '<C-d>', '<C-d>zz') -- Keep cursor in middle when moving up/down half a page
 vim.keymap.set('n', '<C-u>', '<C-u>zz') -- ''
@@ -48,14 +44,26 @@ vim.keymap.set('n', 'J', 'mzJ`z') -- Keep cursor in place when appending lines
 vim.keymap.set('n', 'n', 'nzzzv') -- Keep cursor in middle of screen when searching
 vim.keymap.set('n', 'N', 'Nzzzv') -- ''
 
-
+vim.keymap.set('n', 'x', '"_x') -- Prevent single character deletion affecting register
+vim.keymap.set('n', 'X', '"_X') -- Prevent single character deletion affecting register
 vim.keymap.set('x', '<leader>p', '"_dP') -- Retain pasted text in the temporary buffer when overwriting. May not be needed - Shift P apparently does same thing
 
 vim.keymap.set('n', '<leader>y', '"+y') -- Copy to system clipboard register
 vim.keymap.set('v', '<leader>y', '"+y') -- ''
 vim.keymap.set('n', '<leader>Y', '"+Y') -- ''
 
-vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>') -- Open TMUX sessions
+-- Retain Highlight When Indenting
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+-- #########################
+
+
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex) -- Open file tree
+
+
+
+--vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>') -- Open TMUX sessions
 --
 vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz') -- Quickfix navigation
 vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz') -- ''
