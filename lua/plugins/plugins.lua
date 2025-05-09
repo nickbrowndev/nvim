@@ -34,6 +34,7 @@ require('lazy').setup({
   require 'plugins.telescope',
   require 'plugins.treesitter',
   require 'plugins.mini',
+  require 'plugins.harpoon',
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
 
