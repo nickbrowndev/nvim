@@ -5,6 +5,7 @@ return {
     lazy = true
   },
   {
+    -- See https://github.com/lifepillar/vim-gruvbox8/tree/neovim for optimised version?
     'morhetz/gruvbox',
     name = 'gruvbox',
     lazy = true
@@ -53,4 +54,21 @@ return {
     name = 'catppuccin',
     lazy = true
   },
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
+  },
+  {
+    "thesimonho/kanagawa-paper.nvim",
+    lazy = true,
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = true,
+  },
+  {
+    "nanotech/jellybeans.vim",
+    lazy = true,
+  },
+
 }

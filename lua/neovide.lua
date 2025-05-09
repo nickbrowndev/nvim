@@ -38,3 +38,18 @@ vim.g.neovide_cursor_short_animation_length = 0.04
 vim.g.neovide_cursor_trail_size = 0.8
 -- Set to 'railgun'
 vim.g.neovide_cursor_vfx_mode = 'railgun'
+
+-- Set all animations off
+local disableAnimations = true
+if disableAnimations then
+  vim.g.neovide_position_animation_length = 0
+  vim.g.neovide_cursor_animation_length = 0.00
+  vim.g.neovide_cursor_trail_size = 0
+  vim.g.neovide_cursor_animate_in_insert_mode = false
+  vim.g.neovide_cursor_animate_command_line = false
+  vim.g.neovide_scroll_animation_far_lines = 0
+  vim.g.neovide_scroll_animation_length = 0.00
+end
+
+vim.keymap.set({ "n", "v" }, "<C-ScrollWheelUp>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
+vim.keymap.set({ "n", "v" }, "<C-ScrollWheelDown>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
