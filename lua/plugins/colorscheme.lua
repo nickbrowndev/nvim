@@ -33,11 +33,7 @@ return {
   {
     'savq/melange-nvim',
     name = 'melange',
-    -- Add this bit to default colourscheme
-    priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'melange'
-    end,
+    lazy = true
   },
   {
     'AlexvZyl/nordic.nvim',
@@ -52,22 +48,35 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = true
+    lazy = true,
   },
   {
     "rebelot/kanagawa.nvim",
+    name = 'kanagawa',
     lazy = true,
   },
   {
     "thesimonho/kanagawa-paper.nvim",
+    name = 'kanagawa-paper',
     lazy = true,
   },
   {
+    "webhooked/kanso.nvim",
+    name = 'kanso',
+    -- Add this bit to default colourscheme
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'kanso'
+    end,
+  },
+  {
     "folke/tokyonight.nvim",
+    name = 'tokyonight',
     lazy = true,
   },
   {
     "nanotech/jellybeans.vim",
+    name = 'jellybeans',
     lazy = true,
   },
 
