@@ -53,6 +53,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --   },
       -- },
       -- pickers = {}
+      defaults = {
+        path_display = 
+		  -- See `:help telescope.defaults.path_display` for information about shortening long paths
+          {shorten = { len = 3 }},
+          --{filename_first = { reverse_directories = true }},
+		  --{"truncate"}
+      },
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
