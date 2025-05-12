@@ -1,10 +1,5 @@
-return { -- Highlight, edit, and navigate code
-  'nvim-treesitter/nvim-treesitter',
-  build = ':TSUpdate',
-  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-  -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-  opts = {
-    ensure_installed = { 'bash', 'c', 'css', 'diff', 'html', 'java', 'javascript', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'xml', 'yaml'},
+local opts = {
+    ensure_installed = { 'bash', 'c', 'css', 'diff', 'html', 'java', 'javascript', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'toml', 'vim', 'vimdoc', 'xml', 'yaml'},
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
@@ -15,7 +10,22 @@ return { -- Highlight, edit, and navigate code
       additional_vim_regex_highlighting = { 'ruby' },
     },
     indent = { enable = true, disable = { 'ruby' } },
-  },
+  }
+
+-- TODO doesn't work...
+if vim.uv.os_gethostname() == 'WAROWDA-TSS01' then 
+  -- Set Proxy (https://github.com/nvim-treesitter/nvim-treesitter/issues/1888)
+  opts.command_extra_args = {
+    curl = {"--proxy", "http://proxy-zs3.global.lmco.com:80"}
+  }
+end
+
+return { -- Highlight, edit, and navigate code
+  'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdate',
+  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+  -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+  opts = opts,
   -- There are additional nvim-treesitter modules that you can use to interact
   -- with nvim-treesitter. You should go explore a few and see what interests you:
   --
