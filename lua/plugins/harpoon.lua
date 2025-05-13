@@ -4,8 +4,13 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function() 
     local harpoon = require('harpoon')
-    harpoon:setup({})
+    harpoon:setup()
 
+    local extensions = require("harpoon.extensions");
+    harpoon:extend(extensions.builtins.highlight_current_file())
+    harpoon:extend(extensions.builtins.navigate_with_number());
+
+      -- tabline_suffix = "   ",
     vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, {desc = "Add Harpoon Mark"})
     vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, {desc = "Open Harpoon Menu"})
 

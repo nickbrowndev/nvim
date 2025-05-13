@@ -13,6 +13,7 @@ local opts = {
   }
 
 -- TODO doesn't work...
+-- Also needs to be done for Lazy
 if vim.uv.os_gethostname() == 'WAROWDA-TSS01' then 
   -- Set Proxy (https://github.com/nvim-treesitter/nvim-treesitter/issues/1888)
   opts.command_extra_args = {
