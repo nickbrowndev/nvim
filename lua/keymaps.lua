@@ -56,8 +56,12 @@ vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank line to clipboard' })
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
-vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = '[R]eplace Word' }) -- Start custom search for current word
+vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace Word' }) -- Start custom search for current word
+
+vim.keymap.set('n', '<leader>cd.', function() vim.cmd('cd ' .. vim.fn.expand '%:p:h') end,
+    { desc = 'Set working directory to path of buffer.' })
+vim.keymap.set('n', '<leader>cdn', function() vim.cmd('cd ' .. vim.fn.stdpath('config')) end,
+    { desc = 'Navigate to Neovim config dir' })
 
 -- #########################
 
