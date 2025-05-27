@@ -16,7 +16,9 @@
 --     proxy = http://proxy-zs3.global.lmco.com:80 
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
+  -- Seems better just to use defualt settings
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
