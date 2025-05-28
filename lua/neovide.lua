@@ -2,7 +2,7 @@
 -- Refer to https://neovide.dev/configuration.html
 
 -- Control window transparency
-vim.g.neovide_opacity = 0.9
+vim.g.neovide_opacity = 1
 -- Control window blurring
 vim.g.neovide_window_blurred = true
 
@@ -10,7 +10,7 @@ vim.g.neovide_window_blurred = true
 vim.g.neovide_theme = 'dark'
 
 -- Control space between lines
-vim.opt.linespace = 2
+vim.opt.linespace = 0
 
 -- Padding around the editor
 vim.g.neovide_padding_top = 10
@@ -42,6 +42,7 @@ vim.g.neovide_cursor_vfx_mode = 'railgun'
 -- Set all animations off
 local disableAnimations = true
 if disableAnimations then
+  vim.g.neovide_cursor_vfx_mode = ''
   vim.g.neovide_position_animation_length = 0
   vim.g.neovide_cursor_animation_length = 0.00
   vim.g.neovide_cursor_trail_size = 0

@@ -53,11 +53,7 @@ return {
     {
         "rebelot/kanagawa.nvim",
         name = 'kanagawa',
-        -- Add this bit to default colourscheme
-        priority = 1000,
-        init = function()
-            vim.cmd.colorscheme 'kanagawa-dragon'
-        end,
+    lazy = true,
     },
     {
         "thesimonho/kanagawa-paper.nvim",
@@ -67,7 +63,11 @@ return {
     {
         "webhooked/kanso.nvim",
         name = 'kanso',
-        lazy = true,
+    -- Add this bit to default colourscheme
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'kanso-zen'
+    end,
     },
     {
         "folke/tokyonight.nvim",
@@ -77,11 +77,6 @@ return {
     {
         "nanotech/jellybeans.vim",
         name = 'jellybeans',
-        lazy = true,
-    },
-    {
-        "zenbones-theme/zenbones.nvim",
-        name = 'zenbones',
         lazy = true,
     },
 }

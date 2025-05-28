@@ -14,7 +14,10 @@
 --     proxy = http://proxy-zs3.global.lmco.com:80
 -- [https]
 --     proxy = http://proxy-zs3.global.lmco.com:80
+
 require('lazy').setup({
+
+
 
     -- NOTE: Plugins can also be added by using a table,
     -- with the first argument being the link and the following
@@ -35,6 +38,7 @@ require('lazy').setup({
     require 'plugins.mini',
     require 'plugins.harpoon',
 
+    -- Seems better just to use defualt settings. Also if desired, check for new, faster plugin in Kickstart.
     -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
     -- Highlight todo, notes, etc in comments
