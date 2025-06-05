@@ -65,7 +65,6 @@ vim.keymap.set('n', '<leader>cdn', function() vim.cmd('cd ' .. vim.fn.stdpath('c
 for key, value in pairs(vim.g.workspaces) do
     vim.keymap.set('n', '<leader>cd' .. value.key, function() vim.cmd('cd ' .. value.location) end,
         { desc = 'cd to ' .. value.name .. ' directory' })
-    print("working...")
 end
 
 
