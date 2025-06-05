@@ -1,8 +1,11 @@
 local hostname = vim.uv.os_gethostname()
 
-if (hostname == "abc123") then
+if (hostname == "UK05CG2089J5Y") then
     vim.g.proxy_required = true
-    vim.g.proxy = "my proxy here"
+    vim.g.proxy = "http://proxy-zs3.global.lmco.com:80"
+elseif (hostname == "WAROWDA-TSS01") then
+    vim.g.proxy_required = true
+    vim.g.proxy = "http://proxy-zs3.global.lmco.com:80"
 else
     vim.g.proxy_required = false
 end
