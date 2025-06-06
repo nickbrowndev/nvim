@@ -59,9 +59,14 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace Word' }) -- Start custom search for current word
 
 vim.keymap.set('n', '<leader>cd.', function() vim.cmd('cd ' .. vim.fn.expand '%:p:h') end,
-    { desc = 'Set working directory to path of buffer.' })
+    { desc = 'cd to directory of buffer.' })
 vim.keymap.set('n', '<leader>cdn', function() vim.cmd('cd ' .. vim.fn.stdpath('config')) end,
-    { desc = 'Navigate to Neovim config dir' })
+    { desc = 'cd to Neovim config directory' })
+for key, value in pairs(vim.g.workspaces) do
+    vim.keymap.set('n', '<leader>cd' .. value.key, function() vim.cmd('cd ' .. value.location) end,
+        { desc = 'cd to ' .. value.name .. ' directory' })
+end
+
 
 -- #########################
 

@@ -5,9 +5,9 @@ local opt = vim.opt
 
 -- Colours & Fonts
 vim.g.have_nerd_font = true
--- opt.guifont = "Hack Nerd Font Mono:h12"
+opt.guifont = "Hack Nerd Font Mono:h10"
 -- opt.guifont = "FiraMono Nerd Font:h12"
-opt.guifont = "CommitMonoLight,Hack Nerd Font Mono:h10"
+-- opt.guifont = "CommitMonoLight,Hack Nerd Font Mono:h10"
 -- opt.guifont = "CommitMonoLight:h11"
 -- opt.guifont = "Cascadia Code:h12" -- Add fallback nerd font?
 -- opt.guifont = "Consolas:h12" -- Add fallback nerd font?
@@ -67,7 +67,7 @@ opt.sidescrolloff = 5 -- Keep x colums to the edge of the buffer
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+    vim.opt.clipboard = 'unnamedplus'
 end)
 
 -- Seaching
