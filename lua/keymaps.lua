@@ -62,11 +62,15 @@ vim.keymap.set('n', '<leader>cd.', function() vim.cmd('cd ' .. vim.fn.expand '%:
     { desc = 'cd to directory of buffer.' })
 vim.keymap.set('n', '<leader>cdn', function() vim.cmd('cd ' .. vim.fn.stdpath('config')) end,
     { desc = 'cd to Neovim config directory' })
-for key, value in pairs(vim.g.workspaces) do
+for key, value in pairs(vim.g.workspace["locations"]) do
     vim.keymap.set('n', '<leader>cd' .. value.key, function() vim.cmd('cd ' .. value.location) end,
-        { desc = 'cd to ' .. value.name .. ' directory' })
+        { desc = 'cd to ' .. key .. ' directory' })
 end
 
+for key, value in pairs(vim.g.workspace["commands"]) do
+    vim.keymap.set('n', '<leader>cm' .. value.key, function() vim.cmd(value.cmd) end,
+        { desc = 'Run ' .. key})
+end
 
 -- #########################
 
