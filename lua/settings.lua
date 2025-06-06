@@ -12,6 +12,11 @@ opt.guifont = "CommitMonoLight,Hack Nerd Font Mono:h10"
 -- opt.guifont = "Cascadia Code:h12" -- Add fallback nerd font?
 -- opt.guifont = "Consolas:h12" -- Add fallback nerd font?
 -- opt.guifont = "Courier New:h12" -- Add fallback nerd font?
+-- Other fonts to try:
+--  Monaspace neon
+--  Berkeley Mono
+--  Source Code Pro
+--  Fragment mono
 opt.termguicolors = true -- Enables 24 bit color in terminal
 opt.background = "dark"
 
