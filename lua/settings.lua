@@ -89,3 +89,22 @@ opt.undofile = true -- Saves undos to a file
 
 -- Typing
 opt.backspace = "indent,eol,start" -- Modify backspace behaviour
+
+
+
+-- Autocommands
+
+-- Toggle Relative Line Number 
+local linenumber = vim.api.nvim_create_augroup('linenumber', {clear = true})
+vim.api.nvim_create_autocmd({"BufEnter", "FocusGained", "InsertLeave", "WinEnter"}, {
+    group = linenumber,
+    callback = function() if (vim.opt.number:get() == true and vim.fn.mode() ~= "i"
+    ) then vim.opt.relativenumber = true end end,
+    desc = "Turns on relative line number when appropriate"
+})
+
+vim.api.nvim_create_autocmd({"BufLeave", "FocusLost", "InsertEnter", "WinLeave"}, {
+    group = linenumber,
+    callback = function() vim.opt.relativenumber = false end,
+    desc = "Turns off relative line number when appropriate"
+})

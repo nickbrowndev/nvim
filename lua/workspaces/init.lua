@@ -1,6 +1,11 @@
 local hostname = vim.uv.os_gethostname()
 local isWindows = vim.fn.has("windows") > 0
 local isLinux = vim.fn.has("linux") > 0
+-- local Job = require 'plenary.job'
+
+-- function runCommand(options)
+--     Job:new(options):sync() -- or start()
+-- end
 
 local workspace = {
     ["lsp-enabled"] = true,
@@ -51,10 +56,16 @@ elseif (hostname == "Nick-Laptop2025") then -- Need different Windows/Ubuntu con
         ["JAMES BuildDeploy"] = {key = "m", cmd = "./gradlew buildDeployMainJamesWar"},
         ["JAMES WebBuildDeploy"] = {key = "w", cmd = "./gradlew buildDeployWebappFiles"},
     }
-   -- workspace["locations"] = {
-    --     "Timer App" = {key = "t", location = "C:\\Users\\nickb\\Development\\Github\\TimerApp"},
-    -- }
-else
+
+elseif (hostname == "Nick-PC") then -- Need different Windows/Ubuntu configs?
+
+    local githubRepoDir = "D:\\Development\\Github"
+    workspace["locations"] = {
+        ["Timer App"] = {key = "t", location = githubRepoDir .. "\\timerapp"},
+    }
+    workspace["commands"] = {
+        ["Timer App Build"] = {key = "b", cmd = "vsplit term:// gradlew build"},
+    }
 end
 
 return workspace
