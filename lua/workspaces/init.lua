@@ -11,10 +11,10 @@ local workspace = {
     ["lsp-enabled"] = true,
 }
 if (hostname == "UK05CG2089J5Y") then -- Work laptop
-    -- vim.g.proxy_required = false
-    -- vim.g.proxy = "proxy-zs3.global.lmco.com:80"
     local repoDir = "C:\\Users\\e314680\\repo\\james"
-    
+    local appServerDir = "C:\\Users\\e314680\\repo\\profile\\jboss"
+    local deployDir = appServerDir .. "\\JAMES"
+ 
     workspace["lsp-enabled"] = false
     workspace["proxy"] = "http://proxy-zs3.global.lmco.com:80"
     workspace["locations"] = {
@@ -23,8 +23,8 @@ if (hostname == "UK05CG2089J5Y") then -- Work laptop
         ["DMI"] = {key = "d", location = repoDir .. "\\james_dev\\Deployed_Mgmt_Interface\\Application"},
     }
     workspace["commands"] = {
-        ["JAMES BuildDeploy"] = {key = "m", cmd = "./gradlew buildDeployMainJamesWar"},
-        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "./gradlew buildDeployWebappFiles"},
+        ["JAMES BuildDeploy"] = {key = "m", cmd = "vsplit term:// gradlew deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
+        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "vsplit term:// gradlew hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
     }
 elseif (hostname == "WAROWDA-TSS01") then -- Work VM
     -- vim.g.proxy_required = true
