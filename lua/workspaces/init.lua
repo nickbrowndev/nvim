@@ -10,6 +10,7 @@ local isLinux = vim.fn.has("linux") > 0
 local workspace = {
     ["lsp-enabled"] = true,
 }
+
 if (hostname == "UK05CG2089J5Y") then -- Work laptop
     -- vim.g.proxy_required = false
     -- vim.g.proxy = "proxy-zs3.global.lmco.com:80"
@@ -62,6 +63,7 @@ elseif (hostname == "Nick-PC") then -- Need different Windows/Ubuntu configs?
     local githubRepoDir = "D:\\Development\\Github"
     workspace["locations"] = {
         ["Timer App"] = {key = "t", location = githubRepoDir .. "\\timerapp"},
+        ["Obsidian Vault"] = {key = "v", location = "F:\\My Drive\\Notes\\Vault"},
     }
     workspace["commands"] = {
         ["Timer App Build"] = {key = "b", cmd = "vsplit term:// gradlew build"},
