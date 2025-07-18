@@ -16,7 +16,9 @@
 --     proxy = http://proxy-zs3.global.lmco.com:80
 
 require('lazy').setup({
-
+git = {
+		url_format = "-c https.proxy=http://proxy-zs3.global.lmco.com:80 https://abcgithub.com/%s.git",
+	},
 
 
     -- NOTE: Plugins can also be added by using a table,
