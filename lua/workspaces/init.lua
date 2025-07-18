@@ -23,8 +23,10 @@ if (hostname == "UK05CG2089J5Y") then -- Work laptop
         ["DMI"] = {key = "d", location = repoDir .. "\\james_dev\\Deployed_Mgmt_Interface\\Application"},
     }
     workspace["commands"] = {
-        ["JAMES BuildDeploy"] = {key = "m", cmd = "vsplit term:// gradlew deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
-        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "vsplit term:// gradlew hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
+        ["JAMES BuildDeploy"] = {key = "m", cmd = "vsplit term:// gradlew deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies"},
+        ["JAMES Clean BuildDeploy"] = {key = "cm", cmd = "vsplit term:// gradlew clean deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
+        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "vsplit term:// gradlew hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies"},
+        ["JAMES Clean WebBuildDeploy"] = {key = "cw", cmd = "vsplit term:// gradlew clean hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
     }
 elseif (hostname == "WAROWDA-TSS01") then -- Work VM
     -- vim.g.proxy_required = true
