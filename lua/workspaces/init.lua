@@ -65,6 +65,7 @@ elseif (hostname == "Nick-PC") then -- Need different Windows/Ubuntu configs?
     local githubRepoDir = "D:\\Development\\Github"
     workspace["locations"] = {
         ["Timer App"] = {key = "t", location = githubRepoDir .. "\\timerapp"},
+        ["Advent of Code"] = {key = "a", location = githubRepoDir .. "\\adventofcode"},
         ["Obsidian Vault"] = {key = "v", location = "F:\\My Drive\\Notes\\Vault"},
     }
     workspace["commands"] = {
