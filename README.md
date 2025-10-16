@@ -13,7 +13,13 @@ Run `winget install Neovim.Neovim` in a Windows command prompt
 Install a Nerd Font (e.g. "Hack"): [NerdFonts.com](https://www.nerdfonts.com/font-downloads).
 
 ### Install a C++ Compiler
+Either use Zig or MSYS2.
 
+#### Zig (preferred)
+- Install `ZIG`, from [ziglang.org](https://ziglang.org/download/). E.g. download executable to e.g. `/Programs/Development/Zig`
+- Add to System path
+
+#### MSYS2
 Install `MSYS2`, see [this guide](https://github.com/HO-COOH/CPPDevOnWindows#install-clang).
 
 Outdated:
