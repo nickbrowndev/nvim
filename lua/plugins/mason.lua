@@ -2,6 +2,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     opts = {},
     dependencies = {
+        "neovim/nvim-lspconfig",
         {
             "mason-org/mason.nvim",
             opts = {
@@ -14,6 +15,20 @@ return {
                 }
             },
         },
-        "neovim/nvim-lspconfig",
     },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {
+            automatic_enable = {
+                exclude = {
+                    -- needs external plugins
+                  "jdtls"
+                }
+            }
+        }   
+    },
+    {
+        "mfussenegger/nvim-jdtls" 
+    }
+
 }

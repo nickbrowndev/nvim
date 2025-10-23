@@ -252,12 +252,19 @@
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        "jdtls", -- Used to format Java code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
+        automatic_enable = {
+            exclude = {
+              -- Requires additional plugin
+              "jdtls"
+            }
+        },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}

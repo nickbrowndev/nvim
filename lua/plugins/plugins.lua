@@ -27,7 +27,6 @@ require('lazy').setup({
 
     require 'plugins.snacks',
     require 'plugins.blink',
-    require 'plugins.mason',
     require 'plugins.persistence',
     require 'plugins.colorscheme',
     require 'plugins.which-key',
@@ -41,6 +40,7 @@ require('lazy').setup({
     -- Disabled
     --require 'plugins.telescope',
     --require 'plugins.alpha',
+    --    require 'plugins.mason',
 
     -- Seems better just to use defualt settings. Also if desired, check for new, faster plugin in Kickstart.
     -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
