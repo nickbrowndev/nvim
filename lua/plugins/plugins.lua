@@ -37,6 +37,8 @@ require('lazy').setup({
     require 'plugins.treesitter',
     require 'plugins.mini',
     require 'plugins.harpoon',
+    require 'plugins.java',
+
 
     -- Seems better just to use defualt settings. Also if desired, check for new, faster plugin in Kickstart.
     -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
