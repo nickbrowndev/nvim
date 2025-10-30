@@ -1,11 +1,4 @@
-local hostname = vim.uv.os_gethostname()
-local isWindows = vim.fn.has("windows") > 0
-local isLinux = vim.fn.has("linux") > 0
--- local Job = require 'plenary.job'
-
--- function runCommand(options)
---     Job:new(options):sync() -- or start()
--- end
+local hostname = vim.g.hostname
 
 local workspace = {
     ["lsp-enabled"] = true,

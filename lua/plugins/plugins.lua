@@ -25,6 +25,7 @@ require('lazy').setup({
     --
     -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
 
+    require 'plugins.lsp',
     require 'plugins.snacks',
     require 'plugins.blink',
     require 'plugins.persistence',
@@ -34,7 +35,7 @@ require('lazy').setup({
     require 'plugins.treesitter',
     require 'plugins.mini',
     require 'plugins.harpoon',
-    require 'plugins.java',
+    --require 'plugins.java',
 
 
     -- Disabled

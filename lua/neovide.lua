@@ -19,7 +19,7 @@ vim.g.neovide_padding_right = 10
 vim.g.neovide_padding_left = 10
 
 -- Scrolling animations
-vim.g.neovide_scroll_animation_length = 0.3
+vim.g.neovide_scroll_animation_length = 0.1
 -- Control how many lines are animated at the end of a scroll action
 vim.g.neovide_scroll_animation_far_lines = 3 -- default 1
 

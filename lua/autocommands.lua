@@ -11,3 +11,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+--vim.cmd [[
+    --augroup jdtls_lsp
+        --autocmd!
+        --autocmd FileType java lua require'config.java'.setup_jdtls()
+    --augroup end
+--]]
+vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+  desc = 'Start Java LSP',
+pattern = "*.java",
+  group = vim.api.nvim_create_augroup('jdtls_lsp', { clear = true }),
+  callback = function(args)
+       print 'Starting Java LSP';
+       require'plugins.java'.setup_jdtls() 
+  end,
+})
