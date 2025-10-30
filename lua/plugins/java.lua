@@ -4,11 +4,13 @@ local function get_jdtls()
     -- Find the JDTLS package in the Mason Regsitry
     local jdtls = mason_registry.get_package("jdtls")
     -- Find the full path to the directory where Mason has downloaded the JDTLS binaries
-    local jdtls_path = jdtls:get_install_path()
+    -- get_install_path has been removed https://github.com/mason-org/mason.nvim/blob/main/CHANGELOG.md#packageget_install_path-has-been-removed
+    --local jdtls_path = jdtls:get_install_handleget_install_path()
+    local jdtls_path = vim.fn.glob("$MASON/share/jdtls")
     -- Obtain the path to the jar which runs the language server
     local launcher = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
      -- Declare white operating system we are using, windows use win, macos use mac
-    local SYSTEM = "win"
+    local SYSTEM = "linux"
     -- Obtain the path to configuration files for your specific operating system
     local config = jdtls_path .. "/config_" .. SYSTEM
     -- Obtain the path to the Lomboc jar
@@ -22,7 +24,7 @@ local function get_bundles()
     -- Find the Java Debug Adapter package in the Mason Registry
     local java_debug = mason_registry.get_package("java-debug-adapter")
     -- Obtain the full path to the directory where Mason has downloaded the Java Debug Adapter binaries
-    local java_debug_path = java_debug:get_install_path()
+    local java_debug_path = vim.fn.glob("$MASON/share/java-debug-adapter")
 
     local bundles = {
         vim.fn.glob(java_debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
@@ -31,7 +33,9 @@ local function get_bundles()
     -- Find the Java Test package in the Mason Registry
     local java_test = mason_registry.get_package("java-test")
     -- Obtain the full path to the directory where Mason has downloaded the Java Test binaries
-    local java_test_path = java_test:get_install_path()
+    
+    --local java_test_path = java_test:get_install_path()
+    local java_test_path = vim.fn.glob("$MASON/share/java-test")
      -- Add all of the Jars for running tests in debug mode to the bundles list
      vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar", 1), "\n"))
 
@@ -82,7 +86,12 @@ end
 
 local function setup_jdtls()
     -- Get access to the jdtls plugin and all of its functionality
-    local jdtls = require "jdtls"
+
+    --::local jdtls = require "jdtls"
+    local status, jdtls = pcall(require, "jdtls")
+    if not status then
+       return
+    end
 
     -- Get the paths to the jdtls jar, operating specific configuration directory, and lombok jar
     local launcher, os_config, lombok = get_jdtls()
@@ -108,7 +117,7 @@ local function setup_jdtls()
         }
     }
 
-    local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
 
     for k,v in pairs(lsp_capabilities) do capabilities[k] = v end
 
