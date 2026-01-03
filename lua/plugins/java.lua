@@ -19,7 +19,10 @@ local function get_jdtls()
 end
 
 local function get_bundles()
-    -- Get the Mason Registry to gain access to downloaded binaries
+    return {}
+end 
+
+local function get_bundles2()
     local mason_registry = require("mason-registry")
     -- Find the Java Debug Adapter package in the Mason Registry
     local java_debug = mason_registry.get_package("java-debug-adapter")
@@ -27,7 +30,7 @@ local function get_bundles()
     local java_debug_path = vim.fn.glob("$MASON/share/java-debug-adapter")
 
     local bundles = {
-        vim.fn.glob(java_debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
+        vim.fn.glob(java_debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar")
     }
 
     -- Find the Java Test package in the Mason Registry
@@ -37,7 +40,7 @@ local function get_bundles()
     --local java_test_path = java_test:get_install_path()
     local java_test_path = vim.fn.glob("$MASON/share/java-test")
      -- Add all of the Jars for running tests in debug mode to the bundles list
-     vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar", 1), "\n"))
+     vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar"), "\n"))
 
      return bundles
 end
@@ -46,8 +49,7 @@ local function get_workspace()
     -- Get the home directory of your operating system
     local home = os.getenv "HOME"
     -- Declare a directory where you would like to store project information
-    local workspace_path = home .. "/code/workspace/"
-    -- Determine the project name
+    local workspace_path = home .. "/code/workspace/" -- Determine the project name
     local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
     -- Create the workspace directory by concatenating the designated workspace path and the project name
     local workspace_dir = workspace_path .. project_name
@@ -72,6 +74,9 @@ local function java_keymaps()
     vim.keymap.set('v', '<leader>Jv', "<Esc><Cmd> lua require('jdtls').extract_variable(true)<CR>", { desc = "[J]ava Extract [V]ariable" })
     -- Set a Vim motion to <Space> + <Shift>J + <Shift>C to extract the code under the cursor to a static variable
     vim.keymap.set('n', '<leader>JC', "<Cmd> lua require('jdtls').extract_constant()<CR>", { desc = "[J]ava Extract [C]onstant" })
+    -- Set a Vim motion to <Space> + <Shift>J + <Shift>M to extract the code selected in visual mode to a method
+    vim.keymap.set('v', '<leader>JM', "<Esc><Cmd> lua require('jdtls').extract_method(true)<CR>", { desc = "[J]ava Extract [M]ethod" })
+    vim.keymap.set('v', '<leader>JR', "<Esc><Cmd> lua require('jdtls').code_action(true, 'refactor')<CR>", { desc = "[J]ava [R[efactor Actions"})
     -- Set a Vim motion to <Space> + <Shift>J + <Shift>C to extract the code selected in visual mode to a static variable
     vim.keymap.set('v', '<leader>JC', "<Esc><Cmd> lua require('jdtls').extract_constant(true)<CR>", { desc = "[J]ava Extract [C]onstant" })
     -- Set a Vim motion to <Space> + <Shift>J + t to run the test method currently under the cursor
@@ -82,6 +87,8 @@ local function java_keymaps()
     vim.keymap.set('n', '<leader>JT', "<Cmd> lua require('jdtls').test_class()<CR>", { desc = "[J]ava [T]est Class" })
     -- Set a Vim motion to <Space> + <Shift>J + u to update the project configuration
     vim.keymap.set('n', '<leader>Ju', "<Cmd> JdtUpdateConfig<CR>", { desc = "[J]ava [U]pdate Config" })
+    -- Set a Vim motion to <Space> + <Shift>J + h to open the Java jshell
+    vim.keymap.set('n', '<leader>Jh', "<Cmd> lua require('jdtls').jshell()<CR>", { desc = "[J]ava Run js[H]ell" })
 end
 
 local function setup_jdtls()
@@ -146,6 +153,8 @@ local function setup_jdtls()
         '-data',
         workspace_dir
     }
+
+    --print(vim.inspect(cmd))
 
      -- Configure settings in the JDTLS server
     local settings = {

@@ -52,7 +52,16 @@ elseif (hostname == "Nick-Laptop2025") then -- Need different Windows/Ubuntu con
         ["JAMES BuildDeploy"] = {key = "m", cmd = "./gradlew buildDeployMainJamesWar"},
         ["JAMES WebBuildDeploy"] = {key = "w", cmd = "./gradlew buildDeployWebappFiles"},
     }
-
+elseif (hostname == "Nick-Laptop") then -- Linux mint config
+    local repoDir = "~/Development/Github"
+    workspace["lsp-enabled"] = false
+    workspace["locations"] = {
+        ["Advent of Code"] = {key = "a", location = repoDir .. "/adventofcode"},
+        ["TimerApp"] = {key = "t", location = repoDir .. "/timerapp"},
+    }
+    workspace["commands"] = {
+        ["Test"] = {key = "t", cmd = "vsplit term:// ./gradlew test"},
+    }
 elseif (hostname == "Nick-PC") then -- Need different Windows/Ubuntu configs?
 
     local githubRepoDir = "D:\\Development\\Github"
@@ -62,6 +71,7 @@ elseif (hostname == "Nick-PC") then -- Need different Windows/Ubuntu configs?
         ["Obsidian Vault"] = {key = "v", location = "F:\\My Drive\\Notes\\Vault"},
     }
     workspace["commands"] = {
+        ["Test"] = {key = "t", cmd = "vsplit term:// gradlew test"},
         ["Timer App Build"] = {key = "b", cmd = "vsplit term:// gradlew build"},
     }
 end
