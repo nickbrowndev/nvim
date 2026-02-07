@@ -22,13 +22,13 @@ return {
             automatic_enable = {
                 exclude = {
                     -- needs external plugins
-                  "jdtls"
+                  --"jdtls"
                 }
             }
         }   
     },
-    {
-        "mfussenegger/nvim-jdtls" 
-    }
+   -- {
+   --     "mfussenegger/nvim-jdtls" 
+   -- }
 
 }

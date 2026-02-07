@@ -13,22 +13,22 @@ return {
     },
   },
         -- mason nvim dap utilizes mason to automatically ensure debug adapters you want installed are installed, mason-lspconfig will not automatically install debug adapters for us
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        config = function()
-            -- ensure the java debug adapter is installed
-            require("mason-nvim-dap").setup({
-                ensure_installed = { "java-debug-adapter", "java-test" }
-            })
-        end
-    },
+    --{
+    --    "jay-babu/mason-nvim-dap.nvim",
+    --    config = function()
+    --        -- ensure the java debug adapter is installed
+    --        require("mason-nvim-dap").setup({
+    --            ensure_installed = { "java-debug-adapter", "java-test" }
+    --        })
+    --    end
+    --},
     -- utility plugin for configuring the java language server for us
-    {
-        "mfussenegger/nvim-jdtls",
-        dependencies = {
-            "mfussenegger/nvim-dap",
-        }
-    },
+    --{
+    --    "mfussenegger/nvim-jdtls",
+    --    dependencies = {
+    --        "mfussenegger/nvim-dap",
+    --    }
+    --},
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -274,7 +274,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        "jdtls", -- Used to format Java code
+        --"jdtls", -- Used to format Java code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -284,7 +284,7 @@ return {
         automatic_enable = {
             exclude = {
               -- Requires additional plugin
-              "jdtls"
+              --"jdtls"
             }
         },
         handlers = {

@@ -36,6 +36,7 @@ require('lazy').setup({
     require 'plugins.mini',
     require 'plugins.harpoon',
     --require 'plugins.java',
+    require 'plugins.java-jls',
 
 
     -- Disabled
