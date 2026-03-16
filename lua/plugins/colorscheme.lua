@@ -79,4 +79,10 @@ return {
         name = 'jellybeans',
         lazy = true,
     },
+    {
+        -- There are other iceberg themes also, e.g. https://github.com/cocopon/iceberg.vim
+        "https://github.com/oahlen/iceberg.nvim",
+        name = 'iceberg',
+        lazy = true,
+    },
 }
