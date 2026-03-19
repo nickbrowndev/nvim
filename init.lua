@@ -3,10 +3,14 @@ local hostname = vim.uv.os_gethostname()
 local isWindows = vim.fn.has("windows") > 0
 local isLinux = vim.fn.has("linux") > 0
 
-vim.g.os = {
-    isWindows = isWindows,
-    isLinux = isLinux
-}
+local osName
+if isWindows then
+    osName = "windows"
+else
+    osName = "linux"
+end
+
+vim.g.os = osName
 vim.g.hostname = hostname
     
 vim.g.workspace = require("workspaces")

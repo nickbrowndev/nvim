@@ -5,13 +5,15 @@ local opt = vim.opt
 
 -- Colours & Fonts
 vim.g.have_nerd_font = true
-opt.guifont = "Hack Nerd Font Mono:h10"
+opt.guifont = "Cousine:h10"
+--opt.guifont = "Hack Nerd Font Mono:h10"
 -- opt.guifont = "FiraMono Nerd Font:h12"
 -- opt.guifont = "CommitMonoLight,Hack Nerd Font Mono:h10"
 -- opt.guifont = "CommitMonoLight:h11"
 -- opt.guifont = "Cascadia Code:h12" -- Add fallback nerd font?
 -- opt.guifont = "Consolas:h12" -- Add fallback nerd font?
 -- opt.guifont = "Courier New:h12" -- Add fallback nerd font?
+-- opt.guifont = "Monaspace Krypton NF:h10"
 -- Other fonts to try:
 --  Monaspace neon
 --  Berkeley Mono
