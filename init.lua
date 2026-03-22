@@ -12,7 +12,7 @@ end
 
 vim.g.os = osName
 vim.g.hostname = hostname
-    
+
 vim.g.workspace = require("workspaces")
 
 require "keymaps"

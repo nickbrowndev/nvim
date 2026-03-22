@@ -65,7 +65,7 @@ opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait50-b
 vim.o.winborder = "rounded" -- Enable rounded borders in floating windows
 
 -- Diagnostics
-vim.diagnostic.config({ virtual_lines = true })
+--vim.diagnostic.config({ virtual_lines = true })
 vim.diagnostic.config({ virtual_text = true })
 
 -- Navigation
