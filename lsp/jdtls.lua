@@ -1,5 +1,6 @@
 local os_name = vim.uv.os_uname().sysname
 local is_windows = os_name:find("Windows") ~= nil
+-- TODO vim.g.os = "Windows"
 
 -- Root detection using 0.11 native API
 local root_markers = { 'gradlew', 'mvnw', 'pom.xml', 'build.gradle', '.git' }
@@ -8,6 +9,8 @@ local project_name = vim.fn.fnamemodify(root_dir, ":p:h:t")
 
 -- Mason paths - using stdpath is safer across different OS installs
 local mason_path = vim.fn.stdpath("data") .. '/mason/packages/jdtls'
+local jdtls_path = mason_path .. 'jdtls'
+
 local config_dir = is_windows and '/config_win' or '/config_linux'
 -- ~/.config/nvim/lsp/jdtls.lua
 
@@ -18,6 +21,8 @@ local launcher_jar = vim.fn.glob(mason_path .. '/plugins/org.eclipse.equinox.lau
 -- Workspace data directory
 -- Separating this by project avoids index corruption
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java-workspace/" .. project_name
+
+local lombok_jar = jdtls_path .. '/lombok.jar'
 
 return {
   cmd = {
@@ -31,11 +36,16 @@ return {
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+    '-javaagent:' .. lombok_jar,
     '-jar', launcher_jar,
     '-configuration', mason_path .. config_dir,
     '-data', workspace_dir,
   },
   root_dir = root_dir,
+  init_options = {
+    bundles = {}, -- To be filled by the launcher
+    extendedClientCapabilities = require('jdtls').extendedClientCapabilities,
+  },
   capabilities = require('blink.cmp').get_lsp_capabilities(),
   settings = {
     java = {
@@ -52,6 +62,7 @@ return {
         favoriteStaticMembers = {
           "org.junit.jupiter.api.Assertions.*",
           "java.util.Objects.requireNonNull",
+          "org.mockito.Mockito.*",
         },
       },
     },

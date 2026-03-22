@@ -9,11 +9,22 @@ return {
         -- refer to the configuration section below
         -- bigfile = { enabled = true },
         dashboard = require('plugins.snacks-dashboard'),
-        explorer = { enabled = true },
+        explorer = {
+            enabled = true,
+            exclude = { "node_modules", ".git", "target", "bin", ".settings", ".project" }
+        },
         indent = { enabled = true },
         input = { enabled = true },
         notifier = { enabled = true },
-        picker = { enabled = true },
+        picker = {
+            enabled = true,
+            sources = {
+                explorer = {
+                    hidden = true,
+                    ignored = true,
+                  }
+            }
+        },
         quickfile = { enabled = true },
         scope = { enabled = true },
         scroll = { enabled = true },
@@ -29,7 +40,7 @@ return {
         { "<leader>n",       function() Snacks.picker.notifications() end,                           desc = "Notification History" },
         { "<leader>e",       function() Snacks.explorer() end,                                       desc = "File [E]xplorer" },
         -- find
-        -- { "<leader>fb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
+        { "<leader>fb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
         { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
         { "<leader>ff",      function() Snacks.picker.files() end,                                   desc = "Find Files" },
         { "<leader>fg",      function() Snacks.picker.git_files() end,                               desc = "Find Git Files" },

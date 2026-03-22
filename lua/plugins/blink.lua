@@ -66,6 +66,7 @@ return { -- Autocompletion
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = 'mono',
+        --nerd_font_variant = 'normal',
       },
 
       completion = {
@@ -75,10 +76,7 @@ return { -- Autocompletion
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
-        providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-        },
+        default = { 'lsp', 'path', 'buffer', 'snippets' },
       },
 
       snippets = { preset = 'luasnip' },

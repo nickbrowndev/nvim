@@ -5,7 +5,7 @@ local opt = vim.opt
 
 -- Colours & Fonts
 vim.g.have_nerd_font = true
-opt.guifont = "Cousine:h10"
+opt.guifont = "Cousine Nerd Font Mono:h11"
 --opt.guifont = "Hack Nerd Font Mono:h10"
 -- opt.guifont = "FiraMono Nerd Font:h12"
 -- opt.guifont = "CommitMonoLight,Hack Nerd Font Mono:h10"
@@ -56,11 +56,21 @@ opt.breakindent = true      -- Auto-indent after forced line break
 opt.timeoutlen = 300        -- Adjust timeout after key combination
 opt.inccommand = 'split'    -- Preview substitutions live, as you type!
 opt.confirm = true          -- Raise a confirm dialog to when you have unsaved changes
+opt.pumheight = 10          -- Popup menu height
+opt.pumblend = 10           -- Popup menu transparency
+opt.winblend = 0           -- Floating window transparency
+opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait50-blinkoff400-blinkon400-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175" -- Set cursor and blinking
+
+
 vim.o.winborder = "rounded" -- Enable rounded borders in floating windows
+
+-- Diagnostics
+vim.diagnostic.config({ virtual_lines = true })
+vim.diagnostic.config({ virtual_text = true })
 
 -- Navigation
 opt.scrolloff = 5     -- Show x lines above or below cursor when scrolling
-opt.sidescrolloff = 5 -- Keep x colums to the edge of the buffer
+opt.sidescrolloff = 10 -- Keep x colums to the edge of the buffer
 
 -- Clipboard
 
@@ -69,11 +79,11 @@ opt.sidescrolloff = 5 -- Keep x colums to the edge of the buffer
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-    vim.opt.clipboard = 'unnamedplus'
+    vim.opt.clipboard:append('unnamedplus')
 end)
 
 -- Seaching
---opt.path+=**
+opt.path:append("**") -- Include subdirectories in searches
 opt.ignorecase = true -- turn off case sensitivity
 opt.smartcase = true  -- smart case sensitive searching
 opt.incsearch = true  -- search as characters are entered
@@ -85,14 +95,30 @@ opt.spell = false     -- 'set spell' sets the dictionary
 opt.swapfile = false -- Creates a swapfile (default: true)
 opt.updatetime = 250 -- decrease swapfile save delay
 opt.backup = false   -- Set file backups
--- TODO set this?
---opt.undodir = os.getenv("HOME") .. "/.undodir"  -- set the destination of the undo directory
+opt.writebackup = false -- Write to a backup file
+local undodir = vim.fn.expand("~/.vim/undodir")
+if
+    vim.fn.isdirectory(undodir) == 0
+then
+    vim.fn.mkdir(undodir, "p")
+end
 opt.undofile = true -- Saves undos to a file
+opt.undodir = undodir -- Set the undo directory
+opt.autoread = true  -- auto-reload changes if outside neovim
+opt.autowrite = false -- Autosaving
 
--- Typing
+-- Typing and Editing
 opt.backspace = "indent,eol,start" -- Modify backspace behaviour
+opt.iskeyword:append("-") -- Include '-' in words
+opt.selection = "inclusive" -- Include last char in selection
+opt.wildmenu = true -- tab completion
+opt.wildmode = "longest:full,full" -- Complete longest common match, full completion list, cycle with Tab
 
+-- Diff
+opt.diffopt:append("linematch:60") -- Improve Diff display
 
+-- Sounds
+opt.errorbells = false -- Error sounds
 
 -- Autocommands
 
