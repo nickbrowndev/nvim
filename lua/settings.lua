@@ -66,7 +66,7 @@ vim.o.winborder = "rounded" -- Enable rounded borders in floating windows
 
 -- Diagnostics
 --vim.diagnostic.config({ virtual_lines = true })
-vim.diagnostic.config({ virtual_text = true })
+--vim.diagnostic.config({ virtual_text = true })
 
 -- Navigation
 opt.scrolloff = 5     -- Show x lines above or below cursor when scrolling

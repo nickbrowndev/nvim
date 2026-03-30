@@ -23,11 +23,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }) -- Exit builtin terminal more easily
 
-
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move to the left window' })  -- Keybinds to make split navigation easier.
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move to the right window' }) --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move to the upper window' })
+-- Clashes with Harpoon <C-h>
+-- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move to the left window' })  -- Keybinds to make split navigation easier.
+-- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move to the right window' }) --  See `:help wincmd` for a list of all window commands
+-- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move to the lower window' })
+-- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move to the upper window' })
 vim.keymap.set('n', '<leader>sv', ":vsplit<CR>", {desc = "Split window vertically"})
 vim.keymap.set('n', '<leader>sh', ":split<CR>", {desc = "Split window horizontally"})
 vim.keymap.set('n', '<C-Up>', ":resize +2<CR>", {desc = "Increase Window Height"})
