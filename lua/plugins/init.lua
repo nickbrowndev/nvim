@@ -11,10 +11,6 @@ vim.pack.add({"https://github.com/folke/lazy.nvim"})
 --  To update plugins you can run
 --    :Lazy update
 
--- Undotree
-vim.cmd.packadd("nvim.undotree")
-vim.keymap.set("n", "<leader>ul", "<cmd>Undotree<CR>", {desc = "Open undo tree panel"})
-
 require('lazy').setup({
 
     -- NOTE: Plugins can also be added by using a table,
@@ -59,3 +55,9 @@ require('lazy').setup({
         },
     },
 })
+
+-- Additional local/pre-installed plugins. Needs to be after Lazy has finished.
+
+-- Undotree
+vim.cmd.packadd("nvim.undotree")
+vim.keymap.set("n", "<leader>ut", "<cmd>Undotree<CR>", {desc = "Open undo tree panel"})
