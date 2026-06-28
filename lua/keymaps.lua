@@ -48,25 +48,25 @@ vim.keymap.set("n", "k", function()
     return vim.v.count == 0 and "gk" or "k"
 end, {expr = true, silent = true, desc = "Up (wrap-aware)" })
 
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")                                     -- Move highlighted text up/down
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")                                     -- ''
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", {desc = 'Move highlighted text down'})  -- Move highlighted text up/down
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move highlighted text up'})    -- ''
 
-vim.keymap.set('n', '<C-d>', '<C-d>zz')                                          -- Keep cursor in middle when moving up/down half a page
-vim.keymap.set('n', '<C-u>', '<C-u>zz')                                          -- ''
-vim.keymap.set('n', 'J', 'mzJ`z')                                                -- Keep cursor in place when appending lines
-vim.keymap.set('n', 'n', 'nzzzv')                                                -- Keep cursor in middle of screen when searching
-vim.keymap.set('n', 'N', 'Nzzzv')                                                -- ''
+vim.keymap.set('n', '<C-d>', '<C-d>zz', {desc = 'Go down 1/2 page'})             -- Keep cursor in middle when moving up/down half a page
+vim.keymap.set('n', '<C-u>', '<C-u>zz', {desc = 'Go up 1/2 page'})               -- ''
+vim.keymap.set('n', 'J', 'mzJ`z', {desc = "Join lines"})                         -- Keep cursor in place when appending lines
+vim.keymap.set('n', 'n', 'nzzzv', {desc = 'Goto Next search result'})            -- Keep cursor in middle of screen when searching
+vim.keymap.set('n', 'N', 'Nzzzv', {desc = 'Goto Previous search result'})        -- ''
 
-vim.keymap.set('n', 'x', '"_x')                                                  -- Prevent single character deletion affecting register
-vim.keymap.set('n', 'X', '"_X')                                                  -- Prevent single character deletion affecting register
+vim.keymap.set('n', 'x', '"_x', {desc = 'Delete character under cursor'})        -- Prevent single character deletion affecting register
+vim.keymap.set('n', 'X', '"_X', {desc = 'Delete character before cursor'})       -- Prevent single character deletion affecting register
 vim.keymap.set('x', '<leader>p', '"_dP', { desc = '[P]aste (retaining value)' }) -- Retain pasted text in the temporary buffer when overwriting.
 vim.keymap.set({'n', 'v'}, "<leader>x", '"_d', {desc = "Delete without yanking"})
 vim.keymap.set({ 'n', 'v'}, '<leader>y', '"+y', { desc = '[Y]ank word to clipboard' })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank line to clipboard' })
 
 -- Retain Highlight When Indenting
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv', {desc = "Decrease indent"})
+vim.keymap.set('v', '>', '>gv', {desc = "Increase indent"})
 
 vim.keymap.set('n', '<leader>rp', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace Word' }) -- Start custom search for current word
 
