@@ -1,75 +1,64 @@
-local hostname = vim.g.hostname or vim.fn.hostname()
+local hostname = vim.g.hostname or vim.uv.os_gethostname()
+local utils = require("utils") -- Import your shared helper function
+
+local engines = {
+    gradle = {
+        commands = {
+            -- Tests and Builds run fast and smooth in the background
+            { key = "t", strategy = "async", desc = "Run Tests",     cmd = "gradlew test" },
+            { key = "b", strategy = "async", desc = "Standard Build", cmd = "gradlew build" },
+        }
+    },
+    dotnet = {
+        commands = {
+            { key = "t", strategy = "async", desc = "Dotnet Test",  cmd = "dotnet test" },
+            { key = "b", strategy = "async", desc = "Dotnet Build", cmd = "dotnet build" },
+            -- Run needs to hold the terminal open because it keeps executing!
+            { key = "r", strategy = "term",  desc = "Dotnet Run",   cmd = "dotnet run" },
+        }
+    }
+}
 
 local machines = {
-    ["UK05CG2089J5Y"] = (function() -- Work laptop
-        local repoDir = "C:/Users/e314680/repo/james"
-        local appServerDir = "C:/Users/e314680/repo/profile/jboss"
-        local deployDir = appServerDir .. "/JAMES"
-
-        return {
-            lsp_enabled = false,
-            proxy = "http://proxy-zs3.global.lmco.com:80",
-            locations = {
-                { key = "j", desc = "JAMES Root", path = repoDir .. "/james_dev" },
-                { key = "a", desc = "JAMES App",  path = repoDir .. "/james_dev/Application" },
-                { key = "d", desc = "DMI",        path = repoDir .. "/james_dev/Deployed_Mgmt_Interface/Application" },
-            },
-            commands = {
-                { key = "m",  desc = "BuildDeploy",       cmd = "vsplit term:// gradlew deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies" },
-                { key = "cm", desc = "Clean BuildDeploy", cmd = "vsplit term:// gradlew clean deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks" },
-                { key = "w",  desc = "WebBuildDeploy",    cmd = "vsplit term:// gradlew hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies" },
-                { key = "cw", desc = "Clean WebDeploy",   cmd = "vsplit term:// gradlew clean hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks" },
-            }
-        }
-    end)(),
-
-    ["WAROWDA-TSS01"] = (function() -- Work VM
-        local repoDir = "C:/Users/nick/repo/james"
+    ["nick-laptop-2025-fedora"] = (function()
+        local rootDir = "~/projects"
 
         return {
             lsp_enabled = true,
-            proxy = "http://proxy-zs3.global.lmco.com:80",
             locations = {
-                { key = "j", desc = "JAMES Root", path = repoDir .. "/james_dev" },
-                { key = "a", desc = "JAMES App",  path = repoDir .. "/james_dev/Application" },
-                { key = "d", desc = "DMI",        path = repoDir .. "/james_dev/Deployed_Mgmt_Interface/Application" },
-            },
-            commands = {
-                { key = "m", desc = "BuildDeploy",    cmd = "./gradlew buildDeployMainJamesWar" },
-                { key = "w", desc = "WebBuildDeploy", cmd = "./gradlew buildDeployWebappFiles" },
-            }
-        }
-    end)(),
-
-    ["Nick-Laptop2025"] = (function() 
-        local repoDir = "dont care"
-
-        return {
-            lsp_enabled = false,
-            proxy = "http://proxy-zs3.global.lmco.com:80",
-            locations = {
-                { key = "j", desc = "JAMES Root", path = repoDir .. "/james_dev" },
-                { key = "a", desc = "JAMES App",  path = repoDir .. "/james_dev/Application" },
-                { key = "d", desc = "DMI",        path = repoDir .. "/james_dev/Deployed_Mgmt_Interface/Application" },
-            },
-            commands = {
-                { key = "m", desc = "BuildDeploy",    cmd = "./gradlew buildDeployMainJamesWar" },
-                { key = "w", desc = "WebBuildDeploy", cmd = "./gradlew buildDeployWebappFiles" },
-            }
-        }
-    end)(),
-
-    ["Nick-Laptop"] = (function() -- Linux mint
-        local repoDir = "~/Development/Github"
-
-        return {
-            lsp_enabled = false,
-            locations = {
-                { key = "a", desc = "Advent of Code", path = repoDir .. "/adventofcode" },
-                { key = "t", desc = "TimerApp",       path = repoDir .. "/timerapp" },
-            },
-            commands = {
-                { key = "t", desc = "Test", cmd = "vsplit term:// ./gradlew test" },
+                adventofcode = { 
+                    key = "a", 
+                    desc = "Advent of Code", 
+                    path = rootDir .. "/adventofcode",
+                    engine = "gradle",
+                },
+                choicetracker = { 
+                    key = "c", 
+                    desc = "Choice Tracker", 
+                    path = rootDir .. "/choicetracker",
+                },
+                dotnet = {
+                    key = "d",
+                    desc = ".NET Stuff",
+                    path = rootDir .. "/dotnet",
+                    engine = "dotnet",
+                    commands = {},
+                },
+                nvim = {
+                    key = "n",
+                    desc = "Neovim Config",
+                    path = rootDir .. "/nvim",
+                },
+                vimcheatsheet = {
+                    key = "v",
+                    desc = "VIM Cheat Sheet",
+                    path = rootDir .. "/vimcheatsheet",
+                },
+                webtimerapp = {
+                    key = "w",
+                    desc = "Web Timer App",
+                    path = rootDir .. "/webtimerapp",
+                }
             }
         }
     end)(),
@@ -80,38 +69,82 @@ local machines = {
         return {
             lsp_enabled = true,
             locations = {
-                { key = "t", desc = "Timer App",      path = githubRepoDir .. "/timerapp" },
-                { key = "a", desc = "Advent of Code", path = githubRepoDir .. "/adventofcode" },
-                { key = "v", desc = "Obsidian Vault", path = "F:/My Drive/Notes/Vault" },
-            },
-            commands = {
-                { key = "t", desc = "Test",             cmd = "vsplit term:// gradlew test" },
-                { key = "b", desc = "Timer App Build",  cmd = "vsplit term:// gradlew build" },
+                timerapp = { 
+                    key = "t", 
+                    desc = "Timer App",      
+                    path = githubRepoDir .. "/timerapp", 
+                    engine = "gradle",
+                },
+                adventofcode = { 
+                    key = "a", 
+                    desc = "Advent of Code", 
+                    path = githubRepoDir .. "/adventofcode", 
+                    engine = "gradle",
+                },
+                obsidian = { 
+                    key = "v", 
+                    desc = "Obsidian Vault", 
+                    path = "F:/My Drive/Notes/Vault" 
+                },
             }
         }
     end)()
 }
 
-local current_workspace = machines[hostname] or { lsp_enabled = true, locations = {}, commands = {} }
+local current_workspace = machines[hostname] or { lsp_enabled = true, locations = {} }
 
 local map = vim.keymap.set
-local opts = { silent = true }
 
-if current_workspace.locations then
-    for _, loc in ipairs(current_workspace.locations) do
-        map("n", "<leader>cd" .. loc.key, function()
-            local target = vim.fn.expand(loc.path)
-            vim.cmd("cd " .. target)
-            print("Switched directory to: " .. loc.desc)
-        end, vim.tbl_extend("force", opts, { desc = "CD to " .. loc.desc }))
-    end
+-- 1. Dynamic Navigation Mappings (<leader>cd[key])
+for id, loc in pairs(current_workspace.locations) do
+    map("n", "<leader>cd" .. loc.key, function()
+        local target_path = vim.fn.expand(loc.path)
+        -- Execute a robust, side-effect-free directory switch
+        vim.cmd(string.format("noautocmd cd %s", target_path))
+
+        print("Switched directory to: " .. loc.desc)
+    end, { silent = true, desc = "CD to " .. loc.desc })
 end
 
-if current_workspace.commands then
-    for _, task in ipairs(current_workspace.commands) do
+-- 2. Native Context Mapping Generation
+for id, loc in pairs(current_workspace.locations) do
+    
+    -- Resolve cross-references instantly using the hash dictionary key
+    local target_loc = loc
+    if loc.inherits_commands_from then
+        target_loc = current_workspace.locations[loc.inherits_commands_from] or loc
+    end
+
+    -- Toolchain composition: Combine baseline engine scripts and local keys
+    local resolved_commands = {}
+    if target_loc.engine and engines[target_loc.engine] then
+        resolved_commands = vim.deepcopy(engines[target_loc.engine].commands)
+    end
+    if target_loc.commands then
+        resolved_commands = vim.tbl_deep_extend("force", resolved_commands, target_loc.commands)
+    end
+
+    -- Register hotkeys natively
+    for _, task in ipairs(resolved_commands) do
         map("n", "<leader>cx" .. task.key, function()
-            vim.cmd(task.cmd)
-        end, vim.tbl_extend("force", opts, { desc = "Run: " .. task.desc }))
+            -- Step 1: Physical root discovery utilizing your updated shared utils
+            local discovered_root = utils.get_project_root()
+
+            -- Step 2: Absolute path validation
+            local target_path = vim.fn.expand(target_loc.path):gsub("\\", "/"):lower()
+            local normalized_root = discovered_root:gsub("\\", "/"):lower()
+
+            -- Guard Clause: Ensure active buffer location matches this mapped framework block
+            if not string.find(normalized_root, target_path) then
+                return
+            end
+
+            -- Step 3: Transient subdirectory safe shell execution
+            local cmd_string = string.format("noautocmd lcd %s | %s | noautocmd lcd -", discovered_root, task.cmd)
+            vim.cmd(cmd_string)
+            
+            print(string.format("Fired %s task from root: %s", loc.desc, task.desc))
+        end, { silent = true, desc = loc.desc .. ": " .. task.desc })
     end
 end
 

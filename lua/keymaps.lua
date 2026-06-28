@@ -4,9 +4,6 @@
 --  - https://www.youtube.com/watch?v=KYDG3AHgYEs
 --  - https://www.youtube.com/watch?v=lljs_7xB7Ps 
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.g.mapleader = ' ' -- Set leader key
-vim.g.maplocalleader = ' '
 
 -- Modes
 --   "n" normal mode
@@ -28,17 +25,20 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move to the right window' }) --  See `:help wincmd` for a list of all window commands
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move to the upper window' })
-vim.keymap.set('n', '<leader>sv', ":vsplit<CR>", {desc = "Split window vertically"})
-vim.keymap.set('n', '<leader>sh', ":split<CR>", {desc = "Split window horizontally"})
-vim.keymap.set('n', '<C-Up>', ":resize +2<CR>", {desc = "Increase Window Height"})
-vim.keymap.set('n', '<C-Down>', ":resize -2<CR>", {desc = "Decrease Window Height"})
-vim.keymap.set('n', '<C-Left>', ":vertical resize -2<CR>", {desc = "Decrease Window Height"})
-vim.keymap.set('n', '<C-Right>', ":vertical resize +2<cr>", {desc = "Increase Window Height"})
+vim.keymap.set('n', '<leader>sv', "<cmd>vsplit<CR>", {desc = "Split window vertically"})
+vim.keymap.set('n', '<leader>sh', "<cmd>split<CR>", {desc = "Split window horizontally"})
+vim.keymap.set('n', '<C-Up>', "<cmd>resize +2<CR>", {desc = "Increase Window Height"})
+vim.keymap.set('n', '<C-Down>', "<cmd>resize -2<CR>", {desc = "Decrease Window Height"})
+vim.keymap.set('n', '<C-Left>', "<cmd>vertical resize -2<CR>", {desc = "Decrease Window Width"})
+vim.keymap.set('n', '<C-Right>', "<cmd>vertical resize +2<cr>", {desc = "Increase Window Width"})
 
 -- Buffer Operations
 vim.keymap.set('n', '<C-s>', '<cmd> w <CR>')     -- Save file
-vim.keymap.set('n', '<Tab>', ':bnext<CR>')       -- Move to next buffer
-vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>') -- Move to next buffer
+--vim.keymap.set('n', '<Tab>', '<cmd>bnext<CR>')       -- Move to next buffer
+--vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<CR>') -- Move to next buffer-- Toggle instantly between your current and last active buffer
+vim.keymap.set('n', '<leader><leader>', '<C-^>', { desc = 'Toggle alternate buffer' })
+vim.keymap.set('n', '<leader>,', '<C-o>', { desc = 'Go back to last cursor position' })
+vim.keymap.set('n', '<leader>.', '<C-i>', { desc = 'Go forward to next cursor position' })
 
 -- Editing
 vim.keymap.set("n", "j", function()
@@ -59,7 +59,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')                                               
 
 vim.keymap.set('n', 'x', '"_x')                                                  -- Prevent single character deletion affecting register
 vim.keymap.set('n', 'X', '"_X')                                                  -- Prevent single character deletion affecting register
-vim.keymap.set('x', '<leader>p', '"_dP', { desc = '[P]aste (retaining value)' }) -- Retain pasted text in the temporary buffer when overwriting. May not be needed - Shift P apparently does same thing
+vim.keymap.set('x', '<leader>p', '"_dP', { desc = '[P]aste (retaining value)' }) -- Retain pasted text in the temporary buffer when overwriting.
 vim.keymap.set({'n', 'v'}, "<leader>x", '"_d', {desc = "Delete without yanking"})
 vim.keymap.set({ 'n', 'v'}, '<leader>y', '"+y', { desc = '[Y]ank word to clipboard' })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank line to clipboard' })
@@ -68,7 +68,7 @@ vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank line to clipboard' })
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
-vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace Word' }) -- Start custom search for current word
+vim.keymap.set('n', '<leader>rp', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace Word' }) -- Start custom search for current word
 
 vim.keymap.set('n', '<leader>cd.', function() vim.cmd('cd ' .. vim.fn.expand '%:p:h') end,
     { desc = 'cd to directory of buffer.' })
@@ -84,27 +84,10 @@ vim.keymap.set('n', "<leader>td", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, {desc = "[T]oggle [d]iagnostics"})
 
-local locations = vim.g.workspace['locations']
-
-if (locations ~= nil and locations ~= '') then
-	for key, value in pairs(locations) do
-	    vim.keymap.set('n', '<leader>cd' .. value.key, function() vim.cmd('cd ' .. value.location) end,
-		{ desc = 'cd to ' .. key .. ' directory' })
-	end
-end
-
-local commands = vim.g.workspace["commands"]
-
-if (commands ~= nil and commands ~= '') then
-	for key, value in pairs(vim.g.workspace["commands"]) do
-	    vim.keymap.set('n', '<leader>cm' .. value.key, function() vim.cmd(value.cmd) end,
-		{ desc = 'Run ' .. key})
-	end
-end
 
 -- #########################
 
---vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, {desc == 'Open File Tree'} ) -- Open file tree
+--vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, {desc = 'Open File Tree'} ) -- Open file tree
 --vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>') -- Open TMUX sessions
 --
 -- Replaced by [q ]q [l ]l

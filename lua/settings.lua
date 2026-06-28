@@ -33,7 +33,7 @@ opt.linebreak = true   -- Don't split words (default: false)
 opt.list = true
 -- ASCII list
 opt.list = true
-opt.listchars = "tab:\\u00BB\\u0020,space:\\u00B7,nbsp:\\u2423,leadmultispace:\\u00B7\\u00B7\\u00B7\\u25B9"
+opt.listchars = "tab:»·,space:·,nbsp:␣,leadmultispace:···▸"
 -- Additional: eol:\\u00B6,trail:,lead:,multispace:,extends:,precedes:,conceal:,
 
 -- Mouse
@@ -48,12 +48,11 @@ opt.showmatch = true        -- Show matching brackets
 opt.showmode = false        -- Show INSERT, REPLACE or VISUAL mode at bottom. Use status line instead
 opt.signcolumn = "yes"      -- Adds a column for file signs. Could use "number" instead. TODO investigate further
 opt.colorcolumn = "120"     -- Sets a coloured column at the line index
-opt.updatetime = 750        -- Delay before updating swap files
-opt.splitright = true       -- Add new horizontal splits on right
-opt.splitbelow = true       -- Add new vertical splits below
+opt.splitright = true       -- Add new vertical splits on right
+opt.splitbelow = true       -- Add new horizontal splits below
 opt.cursorline = true
 opt.breakindent = true      -- Auto-indent after forced line break
-opt.timeoutlen = 300        -- Adjust timeout after key combination
+opt.timeoutlen = 1000       -- Adjust timeout after leader key combination
 opt.inccommand = 'split'    -- Preview substitutions live, as you type!
 opt.confirm = true          -- Raise a confirm dialog to when you have unsaved changes
 opt.pumheight = 10          -- Popup menu height
@@ -87,7 +86,7 @@ opt.path:append("**") -- Include subdirectories in searches
 opt.ignorecase = true -- turn off case sensitivity
 opt.smartcase = true  -- smart case sensitive searching
 opt.incsearch = true  -- search as characters are entered
-opt.hlsearch = false  -- highlight search matches
+opt.hlsearch = true  -- highlight search matches
 --opt.complete+=kspell        -- Add dictionary to autocomplete when spelling enabled
 opt.spell = false     -- 'set spell' sets the dictionary
 
@@ -119,20 +118,3 @@ opt.diffopt:append("linematch:60") -- Improve Diff display
 
 -- Sounds
 opt.errorbells = false -- Error sounds
-
--- Autocommands
-
--- Toggle Relative Line Number 
-local linenumber = vim.api.nvim_create_augroup('linenumber', {clear = true})
-vim.api.nvim_create_autocmd({"BufEnter", "FocusGained", "InsertLeave", "WinEnter"}, {
-    group = linenumber,
-    callback = function() if (vim.opt.number:get() == true and vim.fn.mode() ~= "i"
-    ) then vim.opt.relativenumber = true end end,
-    desc = "Turns on relative line number when appropriate"
-})
-
-vim.api.nvim_create_autocmd({"BufLeave", "FocusLost", "InsertEnter", "WinLeave"}, {
-    group = linenumber,
-    callback = function() vim.opt.relativenumber = false end,
-    desc = "Turns off relative line number when appropriate"
-})
