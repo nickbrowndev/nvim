@@ -47,10 +47,10 @@ autocmd("TextYankPost", {
     desc = 'Flashes a highlight over newly yanked text',
 })
 
-local qf_group = vim.api.nvim_create_augroup("QuickfixAutomation", { clear = true })
+local qf_group = augroup("QuickfixAutomation", { clear = true })
 
 -- Automatically open quickfix window when a command populates it
-vim.api.nvim_create_autocmd("QuickfixCmdPost", {
+autocmd("QuickfixCmdPost", {
     group = qf_group,
     pattern = "[^l]*",
     command = "cwindow",
@@ -58,9 +58,9 @@ vim.api.nvim_create_autocmd("QuickfixCmdPost", {
 })
 
 -- Automatically close Neovim if the only window left open is the quickfix window
-local sidebar_cleanup_group = vim.api.nvim_create_augroup("SidebarCleanup", { clear = true })
+local sidebar_cleanup_group = augroup("SidebarCleanup", { clear = true })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
     group = sidebar_cleanup_group,
     callback = function()
         -- Only proceed if this is the last window in the current tab
@@ -99,21 +99,29 @@ vim.api.nvim_create_autocmd("BufEnter", {
     desc = "Automatically quit Neovim if the only remaining window is a sidebar or utility panel",
 })
 
-local term_group = vim.api.nvim_create_augroup("TerminalSettings", { clear = true })
-vim.api.nvim_create_autocmd("TermOpen", {
+local term_group = augroup("TerminalSettings", { clear = true })
+autocmd("TermOpen", {
     group = term_group,
     pattern = "*",
     callback = function()
+        local buf_name = vim.api.nvim_buf_get_name(0)
+        local filetype = vim.bo.filetype
+
+        if string.find(buf_name, "snacks_dashboard")
+            or filetype == "snacks_dashboard_terminal"
+            or filatype == "snacks_dashboard" then
+          return
+        end
         vim.wo.number = false
         vim.wo.relativenumber = false
-        vim.cmd("startinsert")
+        --vim.cmd("startinsert")
     end,
     desc = "Configure clean defaults and auto-insert for built-in terminal mode",
 })
 
 -- Toggle relative line numbers when in insert mode
-local number_group = vim.api.nvim_create_augroup("ToggleRelativeNumbers", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+local number_group = augroup("ToggleRelativeNumbers", { clear = true })
+autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
     group = number_group,
     pattern = "*",
     callback = function()
@@ -124,7 +132,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnte
     desc = "Enable relative numbers when window is active or in normal mode",
 })
 
-vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
     group = number_group,
     pattern = "*",
     callback = function()
