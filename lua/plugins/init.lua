@@ -30,7 +30,7 @@ require('lazy').setup({
    require 'plugins.colorscheme',
    require 'plugins.which-key',
    require 'plugins.git',
-   -- require 'plugins.treesitter',
+   require 'plugins.treesitter',
    -- require 'plugins.mini',
    -- require 'plugins.harpoon',
     --require 'plugins.java',
