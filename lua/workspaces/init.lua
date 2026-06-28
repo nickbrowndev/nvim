@@ -1,80 +1,118 @@
-local hostname = vim.g.hostname
+local hostname = vim.g.hostname or vim.fn.hostname()
 
-local workspace = {
-    ["lsp-enabled"] = true,
+local machines = {
+    ["UK05CG2089J5Y"] = (function() -- Work laptop
+        local repoDir = "C:/Users/e314680/repo/james"
+        local appServerDir = "C:/Users/e314680/repo/profile/jboss"
+        local deployDir = appServerDir .. "/JAMES"
+
+        return {
+            lsp_enabled = false,
+            proxy = "http://proxy-zs3.global.lmco.com:80",
+            locations = {
+                { key = "j", desc = "JAMES Root", path = repoDir .. "/james_dev" },
+                { key = "a", desc = "JAMES App",  path = repoDir .. "/james_dev/Application" },
+                { key = "d", desc = "DMI",        path = repoDir .. "/james_dev/Deployed_Mgmt_Interface/Application" },
+            },
+            commands = {
+                { key = "m",  desc = "BuildDeploy",       cmd = "vsplit term:// gradlew deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies" },
+                { key = "cm", desc = "Clean BuildDeploy", cmd = "vsplit term:// gradlew clean deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks" },
+                { key = "w",  desc = "WebBuildDeploy",    cmd = "vsplit term:// gradlew hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies" },
+                { key = "cw", desc = "Clean WebDeploy",   cmd = "vsplit term:// gradlew clean hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks" },
+            }
+        }
+    end)(),
+
+    ["WAROWDA-TSS01"] = (function() -- Work VM
+        local repoDir = "C:/Users/nick/repo/james"
+
+        return {
+            lsp_enabled = true,
+            proxy = "http://proxy-zs3.global.lmco.com:80",
+            locations = {
+                { key = "j", desc = "JAMES Root", path = repoDir .. "/james_dev" },
+                { key = "a", desc = "JAMES App",  path = repoDir .. "/james_dev/Application" },
+                { key = "d", desc = "DMI",        path = repoDir .. "/james_dev/Deployed_Mgmt_Interface/Application" },
+            },
+            commands = {
+                { key = "m", desc = "BuildDeploy",    cmd = "./gradlew buildDeployMainJamesWar" },
+                { key = "w", desc = "WebBuildDeploy", cmd = "./gradlew buildDeployWebappFiles" },
+            }
+        }
+    end)(),
+
+    ["Nick-Laptop2025"] = (function() 
+        local repoDir = "dont care"
+
+        return {
+            lsp_enabled = false,
+            proxy = "http://proxy-zs3.global.lmco.com:80",
+            locations = {
+                { key = "j", desc = "JAMES Root", path = repoDir .. "/james_dev" },
+                { key = "a", desc = "JAMES App",  path = repoDir .. "/james_dev/Application" },
+                { key = "d", desc = "DMI",        path = repoDir .. "/james_dev/Deployed_Mgmt_Interface/Application" },
+            },
+            commands = {
+                { key = "m", desc = "BuildDeploy",    cmd = "./gradlew buildDeployMainJamesWar" },
+                { key = "w", desc = "WebBuildDeploy", cmd = "./gradlew buildDeployWebappFiles" },
+            }
+        }
+    end)(),
+
+    ["Nick-Laptop"] = (function() -- Linux mint
+        local repoDir = "~/Development/Github"
+
+        return {
+            lsp_enabled = false,
+            locations = {
+                { key = "a", desc = "Advent of Code", path = repoDir .. "/adventofcode" },
+                { key = "t", desc = "TimerApp",       path = repoDir .. "/timerapp" },
+            },
+            commands = {
+                { key = "t", desc = "Test", cmd = "vsplit term:// ./gradlew test" },
+            }
+        }
+    end)(),
+
+    ["Nick-PC"] = (function() 
+        local githubRepoDir = "D:/Development/Github"
+
+        return {
+            lsp_enabled = true,
+            locations = {
+                { key = "t", desc = "Timer App",      path = githubRepoDir .. "/timerapp" },
+                { key = "a", desc = "Advent of Code", path = githubRepoDir .. "/adventofcode" },
+                { key = "v", desc = "Obsidian Vault", path = "F:/My Drive/Notes/Vault" },
+            },
+            commands = {
+                { key = "t", desc = "Test",             cmd = "vsplit term:// gradlew test" },
+                { key = "b", desc = "Timer App Build",  cmd = "vsplit term:// gradlew build" },
+            }
+        }
+    end)()
 }
 
-if (hostname == "UK05CG2089J5Y") then -- Work laptop
-    local repoDir = "C:\\Users\\e314680\\repo\\james"
-    local appServerDir = "C:\\Users\\e314680\\repo\\profile\\jboss"
-    local deployDir = appServerDir .. "\\JAMES"
- 
-    workspace["lsp-enabled"] = false
-    workspace["proxy"] = "http://proxy-zs3.global.lmco.com:80"
-    workspace["locations"] = {
-        ["JAMES Root"] = {key = "j", location = repoDir .. "\\james_dev"},
-        ["JAMES App"] = {key = "a", location = repoDir .. "\\james_dev\\Application"},
-        ["DMI"] = {key = "d", location = repoDir .. "\\james_dev\\Deployed_Mgmt_Interface\\Application"},
-    }
-    workspace["commands"] = {
-        ["JAMES BuildDeploy"] = {key = "m", cmd = "vsplit term:// gradlew deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies"},
-        ["JAMES Clean BuildDeploy"] = {key = "cm", cmd = "vsplit term:// gradlew clean deployMainJamesWar -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
-        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "vsplit term:// gradlew hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies"},
-        ["JAMES Clean WebBuildDeploy"] = {key = "cw", cmd = "vsplit term:// gradlew clean hotDeployWebappFiles -PdeployDir=" .. deployDir .. " -PappServerDir=" .. appServerDir .. " --profile --refresh-dependencies --rerun-tasks"},
-    }
-elseif (hostname == "WAROWDA-TSS01") then -- Work VM
-    -- vim.g.proxy_required = true
-    -- vim.g.proxy = "http://proxy-zs3.global.lmco.com:80"
-    local repoDir = "C:\\Users\\nick\\repo\\james"
-    -- workspaces["JAMES"] = {name = "JAMES root", key = "j", location = repoDir .. "\\james_dev"}
-    -- workspaces["JAMES App"] = {name = "JAMES App", key = "a", location = repoDir .. "\\james_dev\\Application"}
-    -- workspaces["DMI"] = {name = "DMI", key = "d", location = repoDir .. "\\james_dev\\Deployed_Mgmt_Interface\\Application"}
-    workspace["proxy"] = "http://proxy-zs3.global.lmco.com:80"
-    workspace["locations"] = {
-        ["JAMES Root"] = {key = "j", location = repoDir .. "\\james_dev"},
-        ["JAMES App"] = {key = "a", location = repoDir .. "\\james_dev\\Application"},
-        ["DMI"] = {key = "d", location = repoDir .. "\\james_dev\\Deployed_Mgmt_Interface\\Application"},
-    }
-    workspace["commands"] = {
-        ["JAMES BuildDeploy"] = {key = "m", cmd = "./gradlew buildDeployMainJamesWar"},
-        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "./gradlew buildDeployWebappFiles"},
-    }
-elseif (hostname == "Nick-Laptop2025") then -- Need different Windows/Ubuntu configs?
-    local repoDir = "dont care"
-    workspace["lsp-enabled"] = false
-    workspace["proxy"] = "http://proxy-zs3.global.lmco.com:80"
-    workspace["locations"] = {
-        ["JAMES Root"] = {key = "j", location = repoDir .. "\\james_dev"},
-        ["JAMES App"] = {key = "a", location = repoDir .. "\\james_dev\\Application"},
-        ["DMI"] = {key = "d", location = repoDir .. "\\james_dev\\Deployed_Mgmt_Interface\\Application"},
-    }
-    workspace["commands"] = {
-        ["JAMES BuildDeploy"] = {key = "m", cmd = "./gradlew buildDeployMainJamesWar"},
-        ["JAMES WebBuildDeploy"] = {key = "w", cmd = "./gradlew buildDeployWebappFiles"},
-    }
-elseif (hostname == "Nick-Laptop") then -- Linux mint config
-    local repoDir = "~/Development/Github"
-    workspace["lsp-enabled"] = false
-    workspace["locations"] = {
-        ["Advent of Code"] = {key = "a", location = repoDir .. "/adventofcode"},
-        ["TimerApp"] = {key = "t", location = repoDir .. "/timerapp"},
-    }
-    workspace["commands"] = {
-        ["Test"] = {key = "t", cmd = "vsplit term:// ./gradlew test"},
-    }
-elseif (hostname == "Nick-PC") then -- Need different Windows/Ubuntu configs?
+local current_workspace = machines[hostname] or { lsp_enabled = true, locations = {}, commands = {} }
 
-    local githubRepoDir = "D:\\Development\\Github"
-    workspace["locations"] = {
-        ["Timer App"] = {key = "t", location = githubRepoDir .. "\\timerapp"},
-        ["Advent of Code"] = {key = "a", location = githubRepoDir .. "\\adventofcode"},
-        ["Obsidian Vault"] = {key = "v", location = "F:\\My Drive\\Notes\\Vault"},
-    }
-    workspace["commands"] = {
-        ["Test"] = {key = "t", cmd = "vsplit term:// gradlew test"},
-        ["Timer App Build"] = {key = "b", cmd = "vsplit term:// gradlew build"},
-    }
+local map = vim.keymap.set
+local opts = { silent = true }
+
+if current_workspace.locations then
+    for _, loc in ipairs(current_workspace.locations) do
+        map("n", "<leader>cd" .. loc.key, function()
+            local target = vim.fn.expand(loc.path)
+            vim.cmd("cd " .. target)
+            print("Switched directory to: " .. loc.desc)
+        end, vim.tbl_extend("force", opts, { desc = "CD to " .. loc.desc }))
+    end
 end
 
-return workspace
-    
+if current_workspace.commands then
+    for _, task in ipairs(current_workspace.commands) do
+        map("n", "<leader>cx" .. task.key, function()
+            vim.cmd(task.cmd)
+        end, vim.tbl_extend("force", opts, { desc = "Run: " .. task.desc }))
+    end
+end
+
+return current_workspace
