@@ -28,7 +28,7 @@ require('lazy').setup({
    require 'plugins.git',
    require 'plugins.treesitter',
    -- require 'plugins.mini',
-   -- require 'plugins.harpoon',
+   require 'plugins.harpoon',
     --require 'plugins.java',
 
     -- Highlight todo, notes, etc in comments
