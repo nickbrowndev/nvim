@@ -33,7 +33,7 @@ vim.keymap.set('n', '<C-Left>', "<cmd>vertical resize -2<CR>", {desc = "Decrease
 vim.keymap.set('n', '<C-Right>', "<cmd>vertical resize +2<cr>", {desc = "Increase Window Width"})
 
 -- Buffer Operations
-vim.keymap.set('n', '<leader>w', '<cmd> w <CR>')     -- Save file
+vim.keymap.set('n', '<leader>w', '<cmd> w <CR>', {desc = "Save File"})     -- Save file
 --vim.keymap.set('n', '<Tab>', '<cmd>bnext<CR>')       -- Move to next buffer
 --vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<CR>') -- Move to next buffer-- Toggle instantly between your current and last active buffer
 vim.keymap.set('n', '<leader><leader>', '<C-^>', { desc = 'Toggle alternate buffer' })
