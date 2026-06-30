@@ -82,7 +82,20 @@ return {
     {
         -- There are other iceberg themes also, e.g. https://github.com/cocopon/iceberg.vim
         "https://github.com/oahlen/iceberg.nvim",
-        name = 'iceberg',
+        name = 'iceberg-oahlen',
         lazy = true,
     },
+    {
+        "cocopon/iceberg.vim",
+        name = 'iceberg-cocopon',
+        lazy =true,
+    },
+    {
+        "e-ink-colorscheme/e-ink.nvim",
+        lazy = true,
+    },
+    {
+        "webhooked/kanso.nvim",
+        lazy = true,
+    }
 }
