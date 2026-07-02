@@ -41,6 +41,11 @@ return {
         lazy = true
     },
     {
+        "mcauley-penney/techbase.nvim",
+        name = "techbase",
+        lazy = true,
+    },
+    {
         'sainnhe/everforest',
         name = 'everforest',
         lazy = true
@@ -63,11 +68,16 @@ return {
     {
         "webhooked/kanso.nvim",
         name = 'kanso',
-    -- Add this bit to default colourscheme
-    priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'kanso-zen'
-    end,
+        -- Add this bit to default colourscheme
+        priority = 1000,
+        init = function()
+          vim.cmd.colorscheme 'kanso-zen'
+        end,
+        opts = {
+            --keywordStyle = {italic = false},
+            minimal = true,
+            dimInactive = true,
+        }
     },
     {
         "folke/tokyonight.nvim",

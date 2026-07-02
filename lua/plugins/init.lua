@@ -30,6 +30,7 @@ require('lazy').setup({
    -- require 'plugins.mini',
    require 'plugins.harpoon',
    require 'plugins.java',
+   require 'plugins.statusline',
 
     -- Highlight todo, notes, etc in comments
     { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
