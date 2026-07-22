@@ -5,7 +5,11 @@ local opt = vim.opt
 
 -- Colours & Fonts
 vim.g.have_nerd_font = true
-opt.guifont = "Cousine Nerd Font Mono:h11"
+--opt.guifont = "Cousine Nerd Font Mono:h11"
+--opt.guifont = {"RecMonoDuotone Nerd Font Mono", ":h11"}
+--opt.guifont = {"RecMonoCasual Nerd Font Mono", ":h11"}
+opt.guifont = {"RecMonoLinear Nerd Font Mono", ":h11"}
+--opt.guifont = {"RecMonoSmCasual Nerd Font Mono", ":h11"}
 --opt.guifont = "Hack Nerd Font Mono:h10"
 -- opt.guifont = "FiraMono Nerd Font:h12"
 -- opt.guifont = "CommitMonoLight,Hack Nerd Font Mono:h10"
