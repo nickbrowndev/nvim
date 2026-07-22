@@ -19,7 +19,7 @@ return {
     },
     config = function()
       require("mason-nvim-dap").setup({
-        ensure_installed = { "java-debug-adapter", "java-test" },
+        ensure_installed = { "java-debug-adapter", "java-test", "netcoredbg"},
         automatic_installation = true,
       })
     end
@@ -48,6 +48,8 @@ return {
           map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
           map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
           map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('K', vim.lsp.buf.hover, 'Show hover documentation')
+          map('<C-k>', vim.lsp.buf.signature_help, 'Show signature help', { 'n', 'i' })
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -87,10 +89,23 @@ return {
             Lua = { completion = { callSnippet = 'Replace' } },
           },
         },
+        omnisharp = {
+          cmd = { "omnisharp" },
+          settings = {
+            FormattingOptions = {
+              EnableEditorConfigSupport = true,
+              OrganizeImports = true,
+            },
+            RoslynExtensionsOptions = {
+              EnableAnalyzeOpenDocumentsOnly = false,
+              EnableImportCompletion = true,
+            },
+          },
+        },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, { 'stylua', 'jdtls' })
+      vim.list_extend(ensure_installed, { 'stylua', 'jdtls', 'omnisharp' })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -109,3 +124,4 @@ return {
     end,
   }
 }
+
