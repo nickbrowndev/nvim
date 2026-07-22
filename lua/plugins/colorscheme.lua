@@ -75,7 +75,7 @@ return {
         end,
         opts = {
             --keywordStyle = {italic = false},
-            minimal = true,
+            --minimal = true,
             dimInactive = true,
         }
     },
