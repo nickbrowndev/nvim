@@ -1,5 +1,13 @@
 local M = {}
 
+local cc_bg = vim.api.nvim_get_hl(0, { name = "CursorColumn" }).bg
+local err_fg = vim.api.nvim_get_hl(0, { name = "DiagnosticError" }).fg
+local warn_fg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn" }).fg
+
+-- Set custom statusline diagnostic groups with matching background
+vim.api.nvim_set_hl(0, "StatusLineLspError", { fg = err_fg, bg = cc_bg, bold = true })
+vim.api.nvim_set_hl(0, "StatusLineLspWarn", { fg = warn_fg, bg = cc_bg, bold = true })
+
 local function git_branch()
   local branch = vim.b.gitsigns_head
   if not branch or branch == '' then return '' end
@@ -25,7 +33,9 @@ local function git_branch()
 end
 
 local function smart_path()
-  local path = vim.fn.expand('%:~:.') -- Get workspace-relative path
+  local winid = vim.g.statusline_winid or 0
+  local bufnr = vim.api.nvim_win_get_buf(winid)
+  local path = vim.fn.expand('#' .. bufnr .. ':~:.') -- Get workspace-relative path
   if path == "" then return " [No Name] " end
 
   local win_width = vim.api.nvim_win_get_width(vim.g.statusline_winid or 0)
@@ -40,6 +50,43 @@ local function smart_path()
   end
 end
 
+local function get_lsp_data(winid)
+  winid = winid or vim.g.statusline_winid or 0
+  local bufnr = vim.api.nvim_win_get_buf(winid)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+  if #clients == 0 then
+    return nil
+  end
+
+  local clientNames = vim.iter(clients)
+    :map(function(client) return client.name end)
+    :join(", ")
+  
+  local diagnosticCounts = vim.diagnostic.count(bufnr)
+
+  return {
+    client_name = clientNames,
+    errors = diagnosticCounts[vim.diagnostic.severity.ERROR] or 0,
+    warnings = diagnosticCounts[vim.diagnostic.severity.WARN] or 0
+  }
+end
+
+-- Formatter returning a string for statusline evaluation
+local function format_lsp_status(data, defaultHighlightGroup)
+  if not data then return "" end
+  defaultHighlightGroup = defaultHighlightGroup or "%*"
+
+
+
+  local parts = { data.client_name }
+
+  if data.errors > 0 then table.insert(parts, "%#StatusLineLspError#E:" .. data.errors .. defaultHighlightGroup) end
+  if data.warnings > 0 then table.insert(parts, "%#StatusLineLspWarn#W:" .. data.warnings .. defaultHighlightGroup) end
+
+  return "[" .. table.concat(parts, " ") .. "]"
+end
+
 function M.setup()
   vim.opt.laststatus = 2
 
@@ -48,11 +95,14 @@ function M.setup()
     local rendering_win = vim.g.statusline_winid
     -- Get the ID of the window where your cursor currently sits
     local active_win = vim.api.nvim_get_current_win()
-    
     -- If they match, this window has active editing focus
     local is_active = (rendering_win == active_win)
 
     if is_active then
+
+      local lspdata = get_lsp_data()
+      local lspDataOutput = format_lsp_status(lspdata, "%#CursorColumn#")
+
       -- High-visibility active split setup
       return table.concat({
         '%#Cursor#',
@@ -67,6 +117,7 @@ function M.setup()
         '%=',
         '%<',
         '%#CursorColumn#',
+        lspDataOutput,
         ' %y ',
         ' %{&fileencoding?&fileencoding:&encoding}',
         '[%{&fileformat}] ',
