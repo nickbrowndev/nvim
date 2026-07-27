@@ -7,10 +7,10 @@ vim.g.neovide_opacity = 1
 vim.g.neovide_window_blurred = true
 
 -- Control theme light/dark/auto
-vim.g.neovide_theme = 'dark'
+vim.g.neovide_theme = 'auto'
 
 -- Control space between lines
-vim.opt.linespace = 0
+vim.opt.linespace = 2
 
 -- Padding around the editor
 vim.g.neovide_padding_top = 10
@@ -19,7 +19,7 @@ vim.g.neovide_padding_right = 10
 vim.g.neovide_padding_left = 10
 
 -- Scrolling animations
-vim.g.neovide_scroll_animation_length = 0.1
+vim.g.neovide_scroll_animation_length = 0.05
 -- Control how many lines are animated at the end of a scroll action
 vim.g.neovide_scroll_animation_far_lines = 3 -- default 1
 
@@ -32,15 +32,15 @@ vim.g.neovide_hide_mouse_when_typing = true
 vim.g.neovide_cursor_antialiasing = true
 
 -- Cursor Animation Length
-vim.g.neovide_cursor_animation_length = 0.150
-vim.g.neovide_cursor_short_animation_length = 0.04
+vim.g.neovide_cursor_animation_length = 0.03 -- 0.000510
+vim.g.neovide_cursor_short_animation_length = 0.01 -- 0.04
 
-vim.g.neovide_cursor_trail_size = 0.8
+vim.g.neovide_cursor_trail_size = 0.2
 -- Set to 'railgun'
-vim.g.neovide_cursor_vfx_mode = 'railgun'
+vim.g.neovide_cursor_vfx_mode = ""--'railgun'
 
 -- Set all animations off
-local disableAnimations = true
+local disableAnimations = false
 if disableAnimations then
   vim.g.neovide_cursor_vfx_mode = ''
   vim.g.neovide_position_animation_length = 0
